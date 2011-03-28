@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
          :token_authenticatable, :encryptable
 
   attr_protected :email, :password, :password_confirmation, :remember_me
+  
+  has_many :fjords
+  belongs_to :nation
+  
+  validates :nation, :presence => :true
 end

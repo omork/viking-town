@@ -1,0 +1,2 @@
+module VikingHelper
+end

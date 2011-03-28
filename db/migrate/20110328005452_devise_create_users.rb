@@ -1,14 +1,13 @@
 class DeviseCreateUsers < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
+      # devise
       t.database_authenticatable :null => false
       t.recoverable
       t.rememberable
       t.trackable
-
       t.encryptable
-]      t.token_authenticatable
-
+      t.token_authenticatable
 
       t.timestamps
     end

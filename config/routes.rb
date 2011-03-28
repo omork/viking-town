@@ -1,61 +1,34 @@
 PolarHunter::Application.routes.draw do
+  delete "building/destroy/:id", :controller => :building, :action => :destroy
+  delete "fjord/abandon/:id",    :controller => :fjord,    :action => :abandon
+  delete "ship/scuttle/:id",     :controller => :ship,     :action => :scuttle
+  delete "village/abandon/:id",  :controller => :village,  :action => :abandon
+
+  get    "building/show/:id",    :controller => :building, :action => :show
+  get    "fjord/list/:page",     :controller => :fjord,    :action => :list
+  get    "fjord/show/:id",       :controller => :fjord,    :action => :show
+  get    "home/index",           :controller => :home,     :action => :index
+  get    "nation/list/:page",    :controller => :nation,   :action => :list
+  get    "nation/show/:id",      :controller => :nation,   :action => :show
+  get    "ship/show/:id",        :controller => :ship,     :action => :show
+  get    "viking/show/:id",      :controller => :viking,   :action => :show
+  get    "village/show/:id",     :controller => :village,  :action => :show
+  get    "villager/show/:id",    :controller => :villager, :action => :show
+
+  post   "building/build",       :controller => :building, :action => :build
+  post   "building/update",      :controller => :building, :action => :update
+  post   "fjord/settle",         :controller => :fjord,    :action => :settle
+  post   "fjord/update",         :controller => :fjord,    :action => :update
+  post   "nation/align",         :controller => :nation,   :action => :nation
+  post   "ship/build",           :controller => :ship,     :action => :build
+  post   "ship/update",          :controller => :ship,     :action => :update
+  post   "viking/allocate",      :controller => :viking,   :action => :allocate
+  post   "viking/update",        :controller => :viking,   :action => :update
+  post   "village/found",        :controller => :village,  :action => :found
+  post   "village/update",       :controller => :village,  :action => :update
+  post   "villager/allocate",    :controller => :villager, :action => :allocate
+  post   "villager/update",      :controller => :villager, :action => :update
+  
   devise_for :users
-
   root :to => "home#index"
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => "welcome#index"
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
 end
