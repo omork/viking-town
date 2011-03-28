@@ -5,9 +5,8 @@ gem 'rails', '3.0.5'
 gem 'sqlite3'
 
 group :development, :test do
-	gem 'factory_girl_rails'
-	gem 'ruby-debug'
-	gem 'ruby-debug19', :require => 'ruby-debug'
+	gem 'factory_girl_rails', '=1.1.beta1'
+	gem 'ruby-debug19'
 end
 
 gem 'devise'

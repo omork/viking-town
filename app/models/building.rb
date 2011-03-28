@@ -3,6 +3,6 @@ class Building < ActiveRecord::Base
   belongs_to :village
   belongs_to :fjord
   
-  validates :fjord, :presence => :true
-  validates :village, :presence => :true
+  validates :fjord, :presence => true
+  validates :village, :presence => true
 end

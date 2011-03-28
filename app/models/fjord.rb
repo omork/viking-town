@@ -6,6 +6,6 @@ class Fjord < ActiveRecord::Base
   has_many :villagers, :through => :villages
   has_many :buildings, :through => :villages
   
-  validates :user, :presence => :true
-  validates :nation, :presence => :true
+  validates :user, :presence => true, :on => :update
+  validates :nation, :presence => true
 end

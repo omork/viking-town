@@ -3,6 +3,6 @@ class Ship < ActiveRecord::Base
   belongs_to :fjord
   belongs_to :user
   
-  validates :user, :presence => :true
-  validates :fjord, :presence => :true
+  validates :user, :presence => true
+  validates :fjord, :presence => true
 end

@@ -4,7 +4,6 @@ require 'rails/test_help'
 require 'factory_girl'
 
 class ActiveSupport::TestCase
-  include Devise::TestHelpers
   include FactoryGirl
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
