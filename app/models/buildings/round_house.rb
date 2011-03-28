@@ -1,0 +1,2 @@
+class RoundHouse < Building
+end

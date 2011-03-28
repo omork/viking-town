@@ -10,16 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110328100559) do
+ActiveRecord::Schema.define(:version => 20110328125548) do
 
   create_table "buildings", :force => true do |t|
     t.integer  "village_id"
-    t.integer  "fjord_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
-  add_index "buildings", ["fjord_id"], :name => "index_buildings_on_fjord_id"
   add_index "buildings", ["village_id"], :name => "index_buildings_on_village_id"
 
   create_table "fjords", :force => true do |t|

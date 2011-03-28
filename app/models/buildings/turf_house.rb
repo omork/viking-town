@@ -1,0 +1,2 @@
+class TurfHouse < Building
+end

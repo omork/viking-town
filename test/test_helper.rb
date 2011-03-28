@@ -5,11 +5,19 @@ require 'factory_girl'
 
 class ActiveSupport::TestCase
   include FactoryGirl
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def user_with_nation_and_fjord
+    user = Factory(:user, :nation => Factory(:nation))
+    user.fjords << Factory(:fjord, :nation => user.nation)
+    user
+  end
+  
+  def village_with_single_villager_for_user(user)
+    user.fjords.last.villages << Factory(:village)
+    assert_equal 1, user.fjords.last.villages.count
+    village = user.fjords.last.villages.last
+    village.villagers << Factory(:villager)
+    assert_equal 1, village.villagers.count
+    village
+  end
 end
