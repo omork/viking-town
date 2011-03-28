@@ -1,4 +1,4 @@
-PolarHunter::Application.routes.draw do
+VikingTown::Application.routes.draw do
   delete "building/destroy/:id", :controller => :building, :action => :destroy
   delete "fjord/abandon/:id",    :controller => :fjord,    :action => :abandon
   delete "ship/scuttle/:id",     :controller => :ship,     :action => :scuttle

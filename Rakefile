@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-PolarHunter::Application.load_tasks
+VikingTown::Application.load_tasks
