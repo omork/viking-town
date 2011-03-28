@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   attr_protected :email, :password, :password_confirmation, :remember_me
   
   has_many :fjords
+  has_many :ships, :through => :fjords
+  has_many :vikings, :through => :fjords
   belongs_to :nation
   
   validates :nation, :presence => true, :on => :update
