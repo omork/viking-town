@@ -1,4 +1,6 @@
 class BuildingController < ApplicationController
+  before_filter :user_signed_in? :except => :show
+  
   def build
   end
 

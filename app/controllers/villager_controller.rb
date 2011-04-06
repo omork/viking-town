@@ -1,4 +1,6 @@
 class VillagerController < ApplicationController
+  before_filter :user_signed_in? :except => :show
+  
   def allocate
   end
 
@@ -7,5 +9,5 @@ class VillagerController < ApplicationController
 
   def update
   end
-
+  
 end
