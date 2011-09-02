@@ -134,3 +134,11 @@ a:hover { color: #036; }
   h2, h3{ page-break-after: avoid; }
 }
 
+#container {
+
+	height:700px;
+	background-image: url("/images/boomstick.jpg");
+	background-position:right;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+}
