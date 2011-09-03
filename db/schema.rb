@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110328125548) do
+ActiveRecord::Schema.define(:version => 20110903152355) do
 
   create_table "buildings", :force => true do |t|
     t.integer  "village_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20110328125548) do
     t.integer  "nation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "fjords", ["nation_id"], :name => "index_fjords_on_nation_id"

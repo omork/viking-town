@@ -16,10 +16,13 @@ class FjordControllerTest < ActionController::TestCase
   end
   
   test "should start a settlement" do
-    sign_in Factory(:user, :nation => Factory(:nation))
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
     
     post :settle, Hash.new
     assert_response :success
+    
+    assert !user.fjords.empty?
   end
 
   test "should delete when calling abandon" do
