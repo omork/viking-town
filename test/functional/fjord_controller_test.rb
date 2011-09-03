@@ -26,20 +26,44 @@ class FjordControllerTest < ActionController::TestCase
     user = Factory(:user, :nation => Factory(:nation))
     sign_in user
     
-    post :settle, Hash.new
+    post :settle, {:name => "my fjord has a name!"}
     assert_response :success
     
     delete :abandon, :id => user.fjords.first.id
     assert_response :success
   end
 
-  # test "should get update" do
-  #   get :update
-  #   assert_response :success
-  # end
-  # 
-  # test "should get show" do
-  #   get :show
-  #   assert_response :success
-  # end
+  test "should update" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+
+    user.fjords.create!({:name => 'abce', :nation_id => user.nation_id})
+    post :update, {:id => user.fjords.first.id, :fjord => {:name => 'asdf'}}
+    assert_response :success
+        
+    assert_equal 'asdf', user.fjords(true).first.name
+  end
+
+  test "should get show" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+
+    user.fjords.create!({:name => 'abce', :nation_id => user.nation_id})
+
+    get :show, {:id => user.fjords.first.id}
+    assert_response :success
+    assert assigns(:fjord)
+  end
+  
+  test "abandon deletes the fjord" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+
+    user.fjords.create!({:name => 'abce', :nation_id => user.nation_id})
+    
+    delete :abandon, {:id => user.fjords.first.id}
+    assert_response :success
+    
+    assert user.fjords(true).empty?
+  end
 end

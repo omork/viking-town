@@ -9,16 +9,21 @@ class FjordController < ApplicationController
     attributes = params
     attributes.delete(:controller)
     attributes.delete(:action)
-    params[:nation_id] = current_user.nation_id
-    current_user.fjords.create(attributes)
+    attributes[:nation_id] = current_user.nation_id
+    current_user.fjords.create!(attributes)
   end
 
   def abandon
+    @fjord = current_user.fjords.find(params[:id])
+    @fjord.destroy
   end
 
   def update
+    @fjord = current_user.fjords.find(params[:id])
+    @fjord.update_attributes(params[:fjord].stringify_keys)
   end
 
   def show
+    @fjord = current_user.fjords.find(params[:id])
   end
 end
