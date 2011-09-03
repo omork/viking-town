@@ -2,6 +2,7 @@ class FjordController < ApplicationController
   before_filter :user_signed_in?, :except => [:show, :list]
   
   def list
+    @fjords = Fjord.page(params[:page]).order('id DESC')
   end
 
   def settle

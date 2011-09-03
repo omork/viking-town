@@ -6,8 +6,15 @@ class FjordControllerTest < ActionController::TestCase
   test "should get list" do
     get :list
     assert_response :success
+    assert assigns :fjords
   end
 
+  test "should get list with specific page" do
+    get :list, { :page =>1 }
+    assert_response :success
+    assert assigns :fjords
+  end
+  
   test "should start a settlement" do
     sign_in Factory(:user, :nation => Factory(:nation))
     
