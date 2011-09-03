@@ -1,0 +1,7 @@
+<% if user_signed_in? %>
+you are signed in. this is about you:
+
+<pre>
+<%= current_user.to_json.gsub(',', ",\n") %>
+</pre>
+<% end %>
