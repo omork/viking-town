@@ -15,19 +15,24 @@ class FjordControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get abandon" do
-    get :abandon
+  test "should delete when calling abandon" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+    
+    post :settle, Hash.new
+    assert_response :success
+    
+    delete :abandon, :id => user.fjords.first.id
     assert_response :success
   end
 
-  test "should get update" do
-    get :update
-    assert_response :success
-  end
-
-  test "should get show" do
-    get :show
-    assert_response :success
-  end
-
+  # test "should get update" do
+  #   get :update
+  #   assert_response :success
+  # end
+  # 
+  # test "should get show" do
+  #   get :show
+  #   assert_response :success
+  # end
 end
