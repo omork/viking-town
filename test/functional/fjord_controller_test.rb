@@ -46,6 +46,18 @@ class FjordControllerTest < ActionController::TestCase
         
     assert_equal 'asdf', user.fjords(true).first.name
   end
+  
+  test "can't update the nation once a fjord is created" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+
+    user.fjords.create!({:name => 'abce', :nation_id => user.nation_id})
+    post :update, {:id => user.fjords.first.id, :fjord => {:nation_id => 6}}
+    assert_response :success
+    
+    assert_equal user.nation_id, user.fjords(true).first.nation_id
+  end
+
 
   test "should get show" do
     user = Factory(:user, :nation => Factory(:nation))
