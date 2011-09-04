@@ -1,2 +1,6 @@
-<h1>Fjord#list</h1>
-<p>Find me in app/views/fjord/list.html.erb</p>
+<% @fjords.each do |fjord| %>
+  <pre><%= fjord.inspect.gsub(',', ",\n") %></pre>
+  <%= link_to fjord.name, :action => :show, :id => fjord.id %>
+<% end %>
+
+<%= will_paginate @fjords %>

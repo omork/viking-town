@@ -1,2 +1,8 @@
-<h1>Village#found</h1>
-<p>Find me in app/views/village/found.html.erb</p>
+<h1>Found a new village</h1>
+<%= form_for Village.new, :url => {:controller => :village, :action => :found} do |f| %>
+  <%= f.hidden_field :fjord_id, :value => @fjord.id %>
+  <%= f.label :name %>:
+  <%= f.text_field :name %><br />
+
+  <%= f.submit %>
+<% end %>

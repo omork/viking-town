@@ -8,6 +8,9 @@ class Village < ActiveRecord::Base
   after_create :create_first_building
   
   def create_first_building
-    self.buildings << RoundHouse.new
+    # we don't care about the toplevel constant warning
+    silence_warnings do
+      self.buildings << Building::RoundHouse.new
+    end
   end
 end

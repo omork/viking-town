@@ -13,4 +13,7 @@ class Fjord < ActiveRecord::Base
   
   validates :user, :presence => true, :on => :update
   validates :nation, :presence => true
+  
+  # will_paginate
+  self.per_page = 10
 end

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :fjords
   has_many :ships, :through => :fjords
   has_many :vikings, :through => :fjords
+  has_many :villages, :through => :fjords, :readonly => false
   belongs_to :nation
   
   validates :nation, :presence => true, :on => :update

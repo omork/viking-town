@@ -1,2 +1,15 @@
-<h1>Fjord#show</h1>
-<p>Find me in app/views/fjord/show.html.erb</p>
+<pre><%= @fjord.inspect.gsub(',', ",\n") %></pre>
+
+<% @fjord.villages.each do |village| %>
+<pre><%= village.inspect.gsub(',', ",\n") %></pre>
+<%= link_to village.name, :action => :show, :controller => :village, :id => village.id %>
+
+<% village.buildings.each do |building| %>
+<pre><%= building.inspect.gsub(',', ",\n") %></pre>
+<% end %>
+
+<% end %>
+
+<% if @fjord.villages.empty? %>
+<%= render :template => 'village/found'%>
+<% end %>
