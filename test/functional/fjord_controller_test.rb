@@ -81,4 +81,13 @@ class FjordControllerTest < ActionController::TestCase
     
     assert user.fjords(true).empty?
   end
+  
+  test "new assigns @fjord" do
+    user = Factory(:user, :nation => Factory(:nation))
+    sign_in user
+
+    get :new
+    assert_response :success
+    assert assigns(:fjord)
+  end
 end

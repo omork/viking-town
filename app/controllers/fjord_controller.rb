@@ -6,11 +6,8 @@ class FjordController < ApplicationController
   end
 
   def settle
-    attributes = params
-    attributes.delete(:controller)
-    attributes.delete(:action)
-    attributes[:nation_id] = current_user.nation_id
-    current_user.fjords.create!(attributes)
+    params[:fjord][:nation_id] = current_user.nation_id
+    current_user.fjords.create!(params[:fjord])
   end
 
   def abandon
@@ -26,4 +23,6 @@ class FjordController < ApplicationController
   def show
     @fjord = current_user.fjords.find(params[:id])
   end
+  
+  def new ; end
 end

@@ -1,2 +1,7 @@
-<h1>Fjord#settle</h1>
-<p>Find me in app/views/fjord/settle.html.erb</p>
+<h1>Settle in a new fjord</h1>
+<%= form_for Fjord.new, :url => {:controller => :fjord, :action => :settle} do |f| %>
+  <%= f.label :name %>:
+  <%= f.text_field :name %><br />
+
+  <%= f.submit %>
+<% end %>

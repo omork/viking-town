@@ -4,4 +4,9 @@ you are signed in. this is about you:
 <pre>
 <%= current_user.to_json.gsub(',', ",\n") %>
 </pre>
+
+<% if current_user.fjords.count < 1 %>
+<%= render :template => 'fjord/settle'%>
+<% end %>
+
 <% end %>
