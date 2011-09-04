@@ -1,2 +1,11 @@
-<h1>Village#show</h1>
-<p>Find me in app/views/village/show.html.erb</p>
+<pre><%= @village.inspect.gsub(',', ",\n") %></pre>
+
+buildings:
+<% @village.buildings.each do |building| %>
+<pre><%= building.inspect.gsub(',', ",\n") %></pre>
+<% end %>
+
+villagers:
+<% @village.villagers.each do |villager| %>
+<pre><%= villager.inspect.gsub(',', ",\n") %></pre>
+<% end %>
