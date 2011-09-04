@@ -8,6 +8,7 @@ class FjordController < ApplicationController
   def settle
     params[:fjord][:nation_id] = current_user.nation_id
     current_user.fjords.create!(params[:fjord])
+    redirect_to :action => :list
   end
 
   def abandon
@@ -23,6 +24,4 @@ class FjordController < ApplicationController
   def show
     @fjord = current_user.fjords.find(params[:id])
   end
-  
-  def new ; end
 end

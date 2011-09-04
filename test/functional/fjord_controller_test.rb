@@ -19,19 +19,17 @@ class FjordControllerTest < ActionController::TestCase
     user = Factory(:user, :nation => Factory(:nation))
     sign_in user
     
-    post :settle, Hash.new
-    assert_response :success
+    post :settle, {:fjord => {}}
+    assert_redirected_to :action => :list
     
     assert !user.fjords.empty?
   end
 
   test "should delete when calling abandon" do
     user = Factory(:user, :nation => Factory(:nation))
+    user.fjords.create!(:name => 'asdf', :nation_id => user.nation_id)
     sign_in user
-    
-    post :settle, {:name => "my fjord has a name!"}
-    assert_response :success
-    
+        
     delete :abandon, :id => user.fjords.first.id
     assert_response :success
   end
@@ -80,14 +78,5 @@ class FjordControllerTest < ActionController::TestCase
     assert_response :success
     
     assert user.fjords(true).empty?
-  end
-  
-  test "new assigns @fjord" do
-    user = Factory(:user, :nation => Factory(:nation))
-    sign_in user
-
-    get :new
-    assert_response :success
-    assert assigns(:fjord)
   end
 end

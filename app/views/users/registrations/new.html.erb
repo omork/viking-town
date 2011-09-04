@@ -13,7 +13,7 @@
   <%= f.password_field :password_confirmation %></p>
   
   <p><%= f.label :nation %><br />
-  <%= select :user, :nation_id, Nation.find(:all) %></p>
+  <%= select :user, :nation_id, Nation.find(:all).collect { |n| [n.name, n.id] } %></p>
   
   <p><%= f.submit "Sign up" %></p>
 <% end %>
