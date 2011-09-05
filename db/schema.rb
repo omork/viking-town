@@ -10,13 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110904212314) do
+ActiveRecord::Schema.define(:version => 20110905180153) do
 
   create_table "buildings", :force => true do |t|
     t.integer  "village_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
+    t.string   "task"
+    t.datetime "assigned_at"
+    t.datetime "completed_at"
   end
 
   add_index "buildings", ["village_id"], :name => "index_buildings_on_village_id"
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20110904212314) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "nation_id"
+    t.string   "username"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

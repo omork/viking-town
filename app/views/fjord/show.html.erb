@@ -1,6 +1,7 @@
 <pre><%= @fjord.inspect.gsub(',', ",\n") %></pre>
 
 <%= @fjord.name %>'s villages
+
 <% @fjord.villages.each do |village| %>
 <pre><%= village.inspect.gsub(',', ",\n") %></pre>
 <%= link_to village.name, :action => :show, :controller => :village, :id => village.id %>'s buildings

@@ -13,4 +13,9 @@ class BuildingController < ApplicationController
   def destroy
   end
 
+  def task
+    @building = current_user.building(params[:id])
+    @building.allocate(params[:task])
+    redirect_to :action => :show
+  end
 end

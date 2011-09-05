@@ -24,4 +24,9 @@ class FjordController < ApplicationController
   def show
     @fjord = current_user.fjords.find(params[:id])
   end
+  
+  def mine
+    @fjords = current_user.fjords.page(params[:page]).order('id desc')
+    render :action => :list
+  end
 end

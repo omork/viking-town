@@ -10,7 +10,7 @@ class Village < ActiveRecord::Base
   def create_first_building
     # we don't care about the toplevel constant warning
     silence_warnings do
-      rh = Building::RoundHouse.new
+      rh = Building::RoundHouse.new(:village_id => self.id)
       rh.save!
       self.buildings << rh
     end

@@ -20,7 +20,6 @@ class ActiveSupport::TestCase
     user.fjords.last.villages << Factory(:village)
     assert_equal 1, user.fjords.last.villages.count
     village = user.fjords.last.villages.last
-    village.villagers << Factory(:villager)
     assert_equal 1, village.villagers.count
     village
   end

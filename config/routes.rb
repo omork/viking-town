@@ -7,6 +7,8 @@ VikingTown::Application.routes.draw do
   get    "building/show/:id",    :controller => :building, :action => :show
   get    "fjord/list/:page",     :controller => :fjord,    :action => :list
   get    "fjord/list",           :controller => :fjord,    :action => :list
+  get    "fjord/mine/:page",     :controller => :fjord,    :action => :mine
+  get    "fjord/mine",           :controller => :fjord,    :action => :mine
   get    "fjord/show/:id",       :controller => :fjord,    :action => :show
   get    "home/index",           :controller => :home,     :action => :index
   get    "nation/list/:page",    :controller => :nation,   :action => :list
