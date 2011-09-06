@@ -8,7 +8,7 @@ class FjordController < ApplicationController
   def settle
     params[:fjord][:nation_id] = current_user.nation_id
     current_user.fjords.create!(params[:fjord])
-    redirect_to :action => :list
+    redirect_to :action => :mine
   end
 
   def abandon

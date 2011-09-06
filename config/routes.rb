@@ -1,10 +1,8 @@
 VikingTown::Application.routes.draw do
-  delete "building/destroy/:id", :controller => :building, :action => :destroy
   delete "fjord/abandon/:id",    :controller => :fjord,    :action => :abandon
   delete "ship/scuttle/:id",     :controller => :ship,     :action => :scuttle
   delete "village/abandon/:id",  :controller => :village,  :action => :abandon
 
-  get    "building/show/:id",    :controller => :building, :action => :show
   get    "fjord/list/:page",     :controller => :fjord,    :action => :list
   get    "fjord/list",           :controller => :fjord,    :action => :list
   get    "fjord/mine/:page",     :controller => :fjord,    :action => :mine
@@ -18,8 +16,6 @@ VikingTown::Application.routes.draw do
   get    "village/show/:id",     :controller => :village,  :action => :show
   get    "villager/show/:id",    :controller => :villager, :action => :show
 
-  post   "building/build",       :controller => :building, :action => :build
-  post   "building/update",      :controller => :building, :action => :update
   post   "fjord/settle",         :controller => :fjord,    :action => :settle
   post   "fjord/update",         :controller => :fjord,    :action => :update
   post   "nation/align",         :controller => :nation,   :action => :nation
@@ -31,6 +27,8 @@ VikingTown::Application.routes.draw do
   post   "village/update",       :controller => :village,  :action => :update
   post   "villager/allocate",    :controller => :villager, :action => :allocate
   post   "villager/update",      :controller => :villager, :action => :update
+  
+  put    "building/assign/:id",  :controller => :building, :action => :assign
   
   devise_for :users
   root :to => "home#index"

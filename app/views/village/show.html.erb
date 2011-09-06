@@ -3,9 +3,18 @@
 buildings:
 <% @village.buildings.each do |building| %>
 <pre><%= building.inspect.gsub(',', ",\n") %></pre>
+<%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
+  <%= f.label :task %>
+  <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
+  
+  <%= f.submit "do" %></p>
+<% end %>
 <% end %>
 
 villagers:
 <% @village.villagers.each do |villager| %>
 <pre><%= villager.inspect.gsub(',', ",\n") %></pre>
 <% end %>
+
+resources:
+<pre><%= @village.resources.inspect.gsub(',', ",\n") %></pre>

@@ -20,7 +20,7 @@ class FjordControllerTest < ActionController::TestCase
     sign_in user
     
     post :settle, {:fjord => {}}
-    assert_redirected_to :action => :list
+    assert_redirected_to :action => :mine
     
     assert !user.fjords.empty?
   end
