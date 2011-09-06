@@ -6,10 +6,4 @@ class VillagerController < ApplicationController
     @building = current_user.building(params[:building_id])
     @building.allocate
   end
-
-  def show
-  end
-
-  def update
-  end
 end
