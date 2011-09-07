@@ -55,5 +55,28 @@ class BuildingTest < ActiveSupport::TestCase
     
     assert_equal 4, user.fjords.first.villages.first.village_resources.resources['beer']
   end
+  
+  test "buildings can't move once their initial position is set" do
+    user = user_with_nation_and_fjord
+    user.fjords.first.villages << Factory(:village)
+    village = user.fjords.first.villages.first
+    building = user.buildings.first
+    
+    assert_equal (village.width / 2.0).ceil, building.x
+    assert_equal (village.height / 2.0).ceil, building.y
+    
+    building.x = 9001 # its over nine thousand
+    building.save!
+    
+    building.reload
+    
+    # crap, it didn't work. DO IT AGAIN
 
+    building.x = 9001 # its over nine thousand
+    building.save!
+    
+    building.reload
+
+    assert_equal (village.width / 2.0).ceil, building.x
+  end
 end

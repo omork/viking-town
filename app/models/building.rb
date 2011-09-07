@@ -5,7 +5,11 @@ class Building < ActiveRecord::Base
   belongs_to :village
 
   validates :village_id, :presence => true, :on => :update
+  validates_numericality_of :x
+  validates_numericality_of :y
 
+  before_save :ensure_position_is_immutable
+  
   after_initialize :check_task
 
   TASKS = {}
@@ -53,5 +57,11 @@ class Building < ActiveRecord::Base
 
       self.save!
     end
+  end
+  
+  def ensure_position_is_immutable
+    # once a building is positioned, it can't move
+    self.x = self.changes['x'].first if self.changes.keys.include?("x") && !self.changes['x'].first.nil?
+    self.y = self.changes['y'].first if self.changes.keys.include?("y") && !self.changes['y'].first.nil?
   end
 end

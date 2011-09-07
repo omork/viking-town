@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110905232538) do
+ActiveRecord::Schema.define(:version => 20110907010005) do
 
   create_table "buildings", :force => true do |t|
     t.integer  "village_id"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20110905232538) do
     t.string   "task"
     t.datetime "assigned_at"
     t.datetime "completed_at"
+    t.integer  "x"
+    t.integer  "y"
   end
 
   add_index "buildings", ["village_id"], :name => "index_buildings_on_village_id"
@@ -105,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20110905232538) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.integer  "width",      :default => 9
+    t.integer  "height",     :default => 3
   end
 
   add_index "villages", ["fjord_id"], :name => "index_villages_on_fjord_id"
