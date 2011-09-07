@@ -50,15 +50,15 @@ class Building < ActiveRecord::Base
 
     if self.completed_at && Time.now > self.completed_at
       # how often we've done it (since we passed completed_at) + 1 (since we know we did it once)
-      times = ((Time.now - self.completed_at) / self.calculate_duration_of(self.task).to_f).floor + 1
-      self.do_task(self.task, times)
+      times = ((Time.now - self.completed_at) / self.calculate_duration_of(self.task).to_f).ceil
 
       # how much time do we have remaining on the current duration?
-      remaining = (Time.now - self.assigned_at) - times * self.calculate_duration_of(self.task)
-
+      remaining = ((self.assigned_at - self.completed_at) % self.calculate_duration_of(self.task))
+      
+      self.do_task(self.task, times)
+      
       self.assigned_at = Time.now
       self.completed_at = self.assigned_at + remaining
-
       self.save!
     end
   end
