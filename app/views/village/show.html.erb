@@ -3,25 +3,64 @@
 buildings:
 <% @village.buildings.each do |building| %>
 <pre><%= building.inspect.gsub(',', ",\n") %></pre>
-<%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
-  <%= f.label :task %>
-  <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
-  
-  <%= f.submit "do" %></p>
-<% end %>
 <% end %>
 
-<div id="village" style="width:<%= Village::WIDTH %>px; height:<%= Village::HEIGHT %>px; border: solid red 1px">
-  <% @village.buildings.each do |building| %>
-  <div style="
-  position: relative;
-  left:<%= (building.x - 1) * Building::SIZE.first %>px; 
-  top:<%= (building.y - 1) * Building::SIZE.last %>px; 
-  border: solid black 1px;
-  background-color:green;
-  width:<%= Building::SIZE.first%>px">X</div>
+<style type="text/css" media="screen">
+  .building {
+    display : inline;
+    position: absolute;
+    border: solid black 1px;
+    background-color:#33CC33;
+  }
+  
+  .empty {
+    display : inline;
+    position: absolute;
+    border: solid black 1px;
+    background-color:#FF5050;
+  }
+</style>
+<script type="text/javascript" charset="utf-8">
+  function toggle_task_form(id) { $("div#building-form-" + id).toggle(); }
+</script>
+
+<div id="village" style="position:relative; width:<%= Village::WIDTH %>px; height:<%= Village::HEIGHT %>px; border: solid white 1px">
+  <% 1.upto(@village.width) do |x| %>
+    <% 1.upto(@village.height) do |y|%>
+      <% if building = @village.building_at(x,y) %>
+        <a onClick="toggle_task_form(<%= building.id %>)">
+          <div id="building-<%= building.id %>" class="building" style="
+          left:<%= (building.x - 1) * Building::SIZE.first %>px; 
+          top:<%= (building.y - 1) * Building::SIZE.last %>px; 
+          width:<%= Building::SIZE.first%>px" class="doit"><%= building.class::KEY %></div>
+        </a>
+      <% else %>
+        <div id="building-<%= x %>-<%= y %>" class="empty" style="
+          left:<%= (x - 1) * Building::SIZE.first %>px; 
+          top:<%= (y - 1) * Building::SIZE.last %>px; 
+          width:<%= Building::SIZE.first%>px" class="doit">empty</div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
+
+<% 1.upto(@village.width) do |x| %>
+  <% 1.upto(@village.height) do |y|%>
+    <% if building = @village.building_at(x,y) %>
+      <div id="building-form-<%= building.id %>" class="building-form">
+        <%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
+          <%= f.label :task %>
+          <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
+
+          <%= f.submit "do" %></p>
+        <% end %>
+      </div>
+      <script type="text/javascript" charset="utf-8">$("#building-form-<%= building.id %>").hide();</script>
+    <% else %>
+    <!-- build new building -->
+    <% end %>
+  <% end %>
+<% end %>
 
 villagers:
 <% @village.villagers.each do |villager| %>

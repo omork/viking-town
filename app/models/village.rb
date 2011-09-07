@@ -25,5 +25,9 @@ class Village < ActiveRecord::Base
     end
   end
   
+  def building_at(x,y)
+    self.buildings.select { |b| b.x == x && b.y == y }.first
+  end
+  
   def create_resource ; self.create_village_resources ; end
 end
