@@ -1,6 +1,9 @@
 require 'building'
 
 class Village < ActiveRecord::Base
+  WIDTH = 9 * 40
+  HEIGHT = 3 * 20
+  
   has_many :villagers
   has_many :buildings
   belongs_to :fjord

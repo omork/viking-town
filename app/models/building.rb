@@ -1,5 +1,7 @@
 class Building < ActiveRecord::Base
   class InvalidTask < StandardError ; end
+  
+  SIZE = [40, 20]
 
   has_many :villagers
   belongs_to :village

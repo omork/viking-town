@@ -11,6 +11,18 @@ buildings:
 <% end %>
 <% end %>
 
+<div id="village" style="width:<%= Village::WIDTH %>px; height:<%= Village::HEIGHT %>px; border: solid red 1px">
+  <% @village.buildings.each do |building| %>
+  <div style="
+  position: relative;
+  left:<%= (building.x - 1) * Building::SIZE.first %>px; 
+  top:<%= (building.y - 1) * Building::SIZE.last %>px; 
+  border: solid black 1px;
+  background-color:green;
+  width:<%= Building::SIZE.first%>px">X</div>
+  <% end %>
+</div>
+
 villagers:
 <% @village.villagers.each do |villager| %>
 <pre><%= villager.inspect.gsub(',', ",\n") %></pre>
