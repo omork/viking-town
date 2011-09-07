@@ -20,9 +20,9 @@ class Building < ActiveRecord::Base
 
   # default behaviors for subclasses to re-implement
   def calculate_duration_of(task) ; 5 ; end
-
-  def do_task(task, times = 1)
-    # assume that tasks are also resource names and apply them to the village accordingly
+  
+  # break this out so subclasses can call it
+  def default_do_task(task, times)
     if self.village.resources.has_key?(task)
       self.village.village_resources.resources[task] += 1 * times
     else
@@ -30,6 +30,11 @@ class Building < ActiveRecord::Base
     end
 
     self.village.village_resources.save!
+  end
+  
+  def do_task(task, times = 1)
+    # assume that tasks are also resource names and apply them to the village accordingly
+    self.default_do_task(task, times)
   end
 
   def check_task

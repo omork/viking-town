@@ -25,4 +25,35 @@ class BuildingTest < ActiveSupport::TestCase
     building.allocate(Building::TASKS[building.type].first)
     assert_in_delta Time.now.to_f, building.assigned_at.to_f, 5
   end
+  
+  test "when a task is repeated it does it right" do
+    user = user_with_nation_and_fjord
+    user.fjords.first.villages << Factory(:village)
+    building = user.buildings.first
+    task = Building::TASKS[building.type].first
+    assert_nil user.fjords.first.villages.first.village_resources.resources[task]
+    
+    building.allocate(task)
+    building.assigned_at = Time.now - 20
+    building.completed_at = Time.now - 15
+    building.check_task
+    
+    assert_equal 4, user.fjords.first.villages.first.village_resources.resources[task]
+  end
+  
+  test "when a roundhouse brews, it makes beer, not brew" do
+    user = user_with_nation_and_fjord
+    user.fjords.first.villages << Factory(:village)
+    building = user.buildings.first
+    task = "brew"
+    assert_nil user.fjords.first.villages.first.village_resources.resources['beer']
+    
+    building.allocate(task)
+    building.assigned_at = Time.now - 20
+    building.completed_at = Time.now - 15
+    building.check_task
+    
+    assert_equal 4, user.fjords.first.villages.first.village_resources.resources['beer']
+  end
+
 end

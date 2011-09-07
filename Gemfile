@@ -9,5 +9,9 @@ group :development, :test do
 	gem 'ruby-debug19'
 end
 
+group :test do
+  gem 'mocha', :git => 'git://github.com/floehopper/mocha.git'
+end
+
 gem 'devise'
 gem 'will_paginate'

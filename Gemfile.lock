@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/floehopper/mocha.git
+  revision: 8bafa6341dc84aa292b7b7725c87506a21c61ed8
+  specs:
+    mocha (0.10.0)
+      metaclass (~> 0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -51,6 +58,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
     mime-types (1.16)
     orm_adapter (0.0.4)
     polyglot (0.3.1)
@@ -98,6 +106,7 @@ PLATFORMS
 DEPENDENCIES
   devise
   factory_girl_rails (= 1.1.beta1)
+  mocha!
   rails (= 3.0.5)
   ruby-debug19
   sqlite3
