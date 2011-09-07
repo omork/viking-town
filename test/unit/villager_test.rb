@@ -10,9 +10,9 @@ class VillagerTest < ActiveSupport::TestCase
     assert village.save!, village.errors.inspect
     assert_equal 1, user.fjords.last.villages.count
     
-    assert_equal 1, village.villagers.count
+    assert_equal 0, village.villagers.count
     village.villagers << Factory(:villager)
-    assert_equal 2, village.villagers.count
+    assert_equal 1, village.villagers.count
   end
   
   test "buildings aren't created for every new villager" do

@@ -13,6 +13,8 @@ class Building < ActiveRecord::Base
   before_save :ensure_position_is_immutable
   
   after_initialize :check_task
+  
+  attr_accessible :type, :x, :y
 
   TASKS = {}
 

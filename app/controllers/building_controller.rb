@@ -7,4 +7,9 @@ class BuildingController < ApplicationController
     @building.save!
     redirect_to :controller => :village, :action => :show, :id => @building.village_id
   end
+  
+  def build
+    current_user.villages.find(params[:id]).buildings.create!(params[:building])
+    redirect_to :controller => :village, :action => :show, :id => params[:id]
+  end
 end

@@ -15,6 +15,7 @@ VikingTown::Application.routes.draw do
   post   "village/found",        :controller => :village,  :action => :found
   post   "village/update",       :controller => :village,  :action => :update
   post   "villager/allocate",    :controller => :villager, :action => :allocate
+  post   "building/build/:id",   :controller => :building, :action => :build
   
   put    "building/assign/:id",  :controller => :building, :action => :assign
   

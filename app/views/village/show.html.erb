@@ -21,7 +21,16 @@ buildings:
   }
 </style>
 <script type="text/javascript" charset="utf-8">
-  function toggle_task_form(id) { $("div#building-form-" + id).toggle(); }
+  function toggle_task_form(id) { 
+    $("div.new-building-form").hide();
+    $("div.building-form").hide();
+    $("div#building-form-" + id).toggle();
+  }
+  function toggle_build_form(x,y) {
+    $("div.new-building-form").hide();
+    $("div.building-form").hide();
+    $("div#new-building-form-" + x + "-" + y).toggle(); 
+  }
 </script>
 
 <div id="village" style="position:relative; width:<%= Village::WIDTH %>px; height:<%= Village::HEIGHT %>px; border: solid white 1px">
@@ -35,10 +44,11 @@ buildings:
           width:<%= Building::SIZE.first%>px" class="doit"><%= building.class::KEY %></div>
         </a>
       <% else %>
-        <div id="building-<%= x %>-<%= y %>" class="empty" style="
-          left:<%= (x - 1) * Building::SIZE.first %>px; 
-          top:<%= (y - 1) * Building::SIZE.last %>px; 
-          width:<%= Building::SIZE.first%>px" class="doit">empty</div>
+        <a onClick="toggle_build_form(<%= x %>, <%= y %>)">
+          <div id="building-<%= x %>-<%= y %>" class="empty" style="
+            left:<%= (x - 1) * Building::SIZE.first %>px; 
+            top:<%= (y - 1) * Building::SIZE.last %>px; 
+            width:<%= Building::SIZE.first%>px" class="doit">empty</div>
       <% end %>
     <% end %>
   <% end %>
@@ -51,13 +61,21 @@ buildings:
         <%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
           <%= f.label :task %>
           <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
-
           <%= f.submit "do" %></p>
         <% end %>
       </div>
       <script type="text/javascript" charset="utf-8">$("#building-form-<%= building.id %>").hide();</script>
     <% else %>
-    <!-- build new building -->
+      <div id="new-building-form-<%= x %>-<%= y %>" class="new-building-form">
+        <%= form_for Building.new, :url => {:controller => "building", :action => "build", :id => @village.id}, :method => :post do |f| %>
+          <%= f.hidden_field :x, :value => x %>
+          <%= f.hidden_field :y, :value => y %>
+          <%= f.label :task %>
+          <%= select :building, :type, Building::TASKS.keys.collect { |n| [n , n] } %>
+          <%= f.submit "do" %></p>
+        <% end %>
+      </div>
+      <script type="text/javascript" charset="utf-8">$("#new-building-form-<%= x %>-<%= y %>").hide();</script>
     <% end %>
   <% end %>
 <% end %>
