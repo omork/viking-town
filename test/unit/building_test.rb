@@ -1,15 +1,6 @@
 require 'test_helper'
 
 class BuildingTest < ActiveSupport::TestCase
-  test "When a roundhouse is created, it adds one villager to the village" do
-    v = Villager.count
-    user = user_with_nation_and_fjord
-    user.fjords.first.villages.create! :name =>'asdf'
-  
-    assert_equal v + 1, Villager.count
-    assert_equal "chief", user.fjords.first.villages.first.buildings.first.villagers.first.title
-  end
-  
   test "can only assign valid tasks" do
     user = user_with_nation_and_fjord
     user.fjords.first.villages << Factory(:village)
@@ -31,29 +22,14 @@ class BuildingTest < ActiveSupport::TestCase
     user.fjords.first.villages << Factory(:village)
     building = user.buildings.first
     task = Building::TASKS[building.type].first
-    assert_nil user.fjords.first.villages.first.village_resources.resources[task]
+    assert_nil user.fjords.first.villages.first.resources[task]
     
     building.allocate(task)
     building.assigned_at = Time.now - 20
     building.completed_at = Time.now - 15
     building.check_task
     
-    assert_equal 4, user.fjords.first.villages.first.village_resources.resources[task]
-  end
-  
-  test "when a roundhouse brews, it makes beer, not brew" do
-    user = user_with_nation_and_fjord
-    user.fjords.first.villages << Factory(:village)
-    building = user.buildings.first
-    task = "brew"
-    assert_nil user.fjords.first.villages.first.village_resources.resources['beer']
-    
-    building.allocate(task)
-    building.assigned_at = Time.now - 20
-    building.completed_at = Time.now - 15
-    building.check_task
-    
-    assert_equal 4, user.fjords.first.villages.first.village_resources.resources['beer']
+    assert_equal 4, user.fjords.first.villages.first.resources[task]
   end
   
   test "buildings can't move once their initial position is set" do

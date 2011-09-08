@@ -8,6 +8,8 @@ class Building < ActiveRecord::Base
 
   after_validation :subclass_validations
   validates :village_id, :presence => true, :on => :update
+
+  validates_presence_of :type
   validates_numericality_of :x
   validates_numericality_of :y
 
@@ -27,7 +29,8 @@ class Building < ActiveRecord::Base
   def subclass_validations ; true ; end
   
   def allocate(task)
-    raise InvalidTask.new("#{task} is an invalid task for #{self.type}") unless TASKS[self.type].include?(task.to_s)
+    raise InvalidTask.new("type has no tasks") unless TASKS.has_key?(self.type.to_s)
+    raise InvalidTask.new("#{task} is an invalid task for #{self.type}") unless TASKS[self.type.to_s].include?(task.to_s)
 
     self.assigned_at = Time.now
     self.completed_at = Time.now + self.calculate_duration_of(task)
@@ -39,12 +42,7 @@ class Building < ActiveRecord::Base
   
   # break this out so subclasses can call it
   def default_do_task(task, times)
-    if self.village.resources.has_key?(task)
-      self.village.village_resources.resources[task] += 1 * times
-    else
-      self.village.village_resources.resources[task] = 1 * times
-    end
-
+    self.village.increment_resources(task, times)
     self.village.village_resources.save!
   end
   

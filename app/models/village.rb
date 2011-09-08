@@ -14,7 +14,7 @@ class Village < ActiveRecord::Base
   validates :fjord, :presence => true, :on => :update
   
   after_create :create_first_building
-  after_create :create_resource
+  after_create :create_resources
   
   def create_first_building
     # we don't care about the toplevel constant warning
@@ -31,5 +31,10 @@ class Village < ActiveRecord::Base
   
   def building_types ; self.buildings.collect(&:type) ; end
   
-  def create_resource ; self.create_village_resources ; end
+  def create_resources ; self.create_village_resources ; end
+  
+  def increment_resources(resource, amount)
+    self.village_resources.resources[resource] = 0 unless self.village_resources.resources.has_key?(resource)
+    self.village_resources.resources[resource] += amount
+  end
 end

@@ -1,6 +1,9 @@
-require 'building.rb'
+require 'building'
 
 class RoundHouse < Building  
+  Building::TASKS.merge!("RoundHouse" => %w(brawl brew))
+  KEY = "rh"
+  
   after_create :add_local_chief
 
   def subclass_validations
@@ -19,10 +22,6 @@ class RoundHouse < Building
     end    
     true
   end
-  
-  Building::TASKS.merge!("RoundHouse" => %w(brawl brew))
-  
-  KEY = "rh"
   
   def add_local_chief
     self.villagers.create!(:title => :chief, :village_id => self.village_id)
