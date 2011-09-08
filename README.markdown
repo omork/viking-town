@@ -1,7 +1,8 @@
+About
+=====
+
 Viking-Town is a city-building game based on a feudal empire of fjords and villages with their vikings & thrall. The work, it progresses.
 
-
-<pre>
                    ~.                       
             Ya...___|__..ab.     .   .  
              Y88b  \88b  \88b   (     )  
@@ -13,4 +14,3 @@ Viking-Town is a city-building game based on a feudal empire of fjords and villa
     \ `---( O )( O )( O )( O )( O )-' /  
      `.    `-'  `-'  `-'  `-'  `-'  .' 
        `---------------------------'
-</pre>
