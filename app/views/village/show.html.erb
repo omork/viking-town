@@ -5,21 +5,6 @@ buildings:
 <pre><%= building.inspect.gsub(',', ",\n") %></pre>
 <% end %>
 
-<style type="text/css" media="screen">
-  .building {
-    display : inline;
-    position: absolute;
-    border: solid black 1px;
-    background-color:#33CC33;
-  }
-  
-  .empty {
-    display : inline;
-    position: absolute;
-    border: solid black 1px;
-    background-color:#FF5050;
-  }
-</style>
 <script type="text/javascript" charset="utf-8">
   function toggle_task_form(id) { 
     $("div.new-building-form").hide();
@@ -80,10 +65,10 @@ buildings:
   <% end %>
 <% end %>
 
+resources:
+<pre><%= @village.resources.inspect.gsub(',', ",\n") %></pre>
+
 villagers:
 <% @village.villagers.each do |villager| %>
 <pre><%= villager.inspect.gsub(',', ",\n") %></pre>
 <% end %>
-
-resources:
-<pre><%= @village.resources.inspect.gsub(',', ",\n") %></pre>

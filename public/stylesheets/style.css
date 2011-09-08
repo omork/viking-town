@@ -136,9 +136,23 @@ a:hover { color: #036; }
 
 #container {
 
-	height:700px;
+	height:100%;
 	background-image: url("/images/boomstick.jpg");
 	background-position:right;
 	background-attachment:fixed;
 	background-repeat:no-repeat;
+}
+
+.building {
+	display : inline;
+	position: absolute;
+	border: solid black 1px;
+	background-color:#33CC33;
+}
+
+.empty {
+	display : inline;
+	position: absolute;
+	border: solid black 1px;
+	background-color:#FF5050;
 }

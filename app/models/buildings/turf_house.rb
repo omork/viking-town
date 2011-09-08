@@ -8,7 +8,7 @@ class TurfHouse < Building
   def do_task(task, times = 1)
     if task.eql?('hay')
       self.village.increment_resources("hay", 1)
-      self.village.increment_resources("straw", 3)
+      self.village.increment_resources!("straw", 3)
     elsif task.eql?('raise-sheep') && 
       (self.village.resources['straw'] || 0) >= 30 && 
       (self.village.resources['hay'] || 0) >= 10

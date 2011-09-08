@@ -40,6 +40,6 @@ class Village < ActiveRecord::Base
   
   def increment_resources!(resource, amount)
     self.increment_resources(resource, amount)
-    self.save!
+    self.village_resources.save!
   end
 end

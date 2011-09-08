@@ -20,5 +20,5 @@ VikingTown::Application.routes.draw do
   put    "building/assign/:id",  :controller => :building, :action => :assign
   
   devise_for :users
-  root :to => "home#index"
+  root :to => "home#index", :controller => :home, :action => :index
 end
