@@ -37,4 +37,9 @@ class Village < ActiveRecord::Base
     self.village_resources.resources[resource] = 0 unless self.village_resources.resources.has_key?(resource)
     self.village_resources.resources[resource] += amount
   end
+  
+  def increment_resources!(resource, amount)
+    self.increment_resources(resource, amount)
+    self.save!
+  end
 end

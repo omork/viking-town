@@ -25,4 +25,12 @@ class ActiveSupport::TestCase
     assert_equal 1, user.fjords.last.villages.last.villagers.count
     village
   end
+  
+  def offset_assigned_at(building, duration)
+    yield building
+    building.completed_at = Time.now
+    building.assigned_at= Time.now - duration
+    assert building.save!
+    return Building.find(building.id)
+  end
 end

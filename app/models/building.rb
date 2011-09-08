@@ -42,8 +42,7 @@ class Building < ActiveRecord::Base
   
   # break this out so subclasses can call it
   def default_do_task(task, times)
-    self.village.increment_resources(task, times)
-    self.village.village_resources.save!
+    self.village.increment_resources!(task, times)
   end
   
   def do_task(task, times = 1)
