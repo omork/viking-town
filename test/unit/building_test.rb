@@ -22,7 +22,7 @@ class BuildingTest < ActiveSupport::TestCase
     user = user_with_nation_and_fjord
     user.fjords.first.villages << Factory(:village)
     building = user.buildings.first
-    building.allocate(Building::TASKS[building.type].first)
+    building.allocate(Building::TASKS[building.type].last)
     assert_in_delta Time.now.to_f, building.assigned_at.to_f, 5
   end
   
