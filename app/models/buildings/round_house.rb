@@ -1,24 +1,24 @@
 require 'building.rb'
 
-# reopen Building so that:
-# ruby-1.9.2-p180 :004 > v.buildings << Building.new(:x => 1, :y => 2, :type => "RoundHouse")
-# => false 
-# will validate without having to instantiate the subclass directly
-# TODO: swtich to validation stub in base class instead of this goofy duck-punching
-
-class Building < ActiveRecord::Base
-  validates_each :type do |model, attr, value|
-    if "RoundHouse".eql?(value) && 
-      (model.new_record? || model.type_changed?) &&
-      model.village_id? && 
-      model.village.buildings.collect(&:type).include?("RoundHouse")
-      model.errors.add(:type, "Cannot have more than one RoundHouse per village")
-    end    
-  end
-end
-
 class RoundHouse < Building  
   after_create :add_local_chief
+
+  def subclass_validations
+    # check for duplicate RoundHouses
+    self.ensure_exactly_one_roundhouse_per_village
+  end
+  
+  def ensure_exactly_one_roundhouse_per_village
+    value = self.type
+    if "RoundHouse".eql?(value) && 
+      (self.new_record? || self.type_changed?) &&
+      self.village_id? &&
+      self.village.buildings_types.include?("RoundHouse")
+      self.errors.add(:type, "Cannot have more than one RoundHouse per village")
+      return false
+    end    
+    true
+  end
   
   Building::TASKS.merge!("RoundHouse" => %w(brawl brew))
   

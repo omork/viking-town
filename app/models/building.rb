@@ -6,6 +6,7 @@ class Building < ActiveRecord::Base
   has_many :villagers
   belongs_to :village
 
+  after_validation :subclass_validations
   validates :village_id, :presence => true, :on => :update
   validates_numericality_of :x
   validates_numericality_of :y
@@ -18,6 +19,13 @@ class Building < ActiveRecord::Base
 
   TASKS = {}
 
+  # allow subclasses to perform their own validations without re-opening the class
+  # that:
+  # ruby-1.9.2-p180 :004 > v.buildings << Building.new(:x => 1, :y => 2, :type => "RoundHouse")
+  # => false 
+  # will validate without having to instantiate the subclass directly
+  def subclass_validations ; true ; end
+  
   def allocate(task)
     raise InvalidTask.new("#{task} is an invalid task for #{self.type}") unless TASKS[self.type].include?(task.to_s)
 

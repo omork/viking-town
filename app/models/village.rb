@@ -29,5 +29,7 @@ class Village < ActiveRecord::Base
     self.buildings.select { |b| b.x == x && b.y == y }.first
   end
   
+  def building_types ; self.buildings.collect(&:type) ; end
+  
   def create_resource ; self.create_village_resources ; end
 end

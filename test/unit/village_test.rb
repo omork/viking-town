@@ -19,4 +19,11 @@ class VillageTest < ActiveSupport::TestCase
     
     assert_equal 1, user.fjords.last.villages.last.buildings.count
   end
+  
+  test "building_types returns a complete list of building types for this village" do
+    user = user_with_nation_and_fjord
+    user.fjords.last.villages << Factory(:village)
+    
+    assert_equal ["RoundHouse"], user.fjords.last.villages.last.building_types
+  end
 end
