@@ -8,19 +8,7 @@ class RoundHouse < Building
 
   def subclass_validations
     # check for duplicate RoundHouses
-    self.ensure_exactly_one_roundhouse_per_village
-  end
-  
-  def ensure_exactly_one_roundhouse_per_village
-    value = self.type
-    if "RoundHouse".eql?(value) && 
-      (self.new_record? || self.type_changed?) &&
-      self.village_id? &&
-      self.village.buildings_types.include?("RoundHouse")
-      self.errors.add(:type, "Cannot have more than one RoundHouse per village")
-      return false
-    end    
-    true
+    self.ensure_exactly_one_of("RoundHouse")
   end
   
   def add_local_chief

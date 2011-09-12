@@ -28,6 +28,18 @@ class Building < ActiveRecord::Base
   # will validate without having to instantiate the subclass directly
   def subclass_validations ; true ; end
   
+  def ensure_exactly_one_of(type)
+    value = self.type
+    if type.eql?(value) && 
+      (self.new_record? || self.type_changed?) &&
+      self.village_id? &&
+      self.village.buildings_types.include?(type)
+      self.errors.add(:type, "Cannot have more than one #{type} per village")
+      return false
+    end    
+    true
+  end
+
   def allocate(task)
     raise InvalidTask.new("type has no tasks") unless TASKS.has_key?(self.type.to_s)
     raise InvalidTask.new("#{task} is an invalid task for #{self.type}") unless TASKS[self.type.to_s].include?(task.to_s)
