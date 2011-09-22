@@ -1,7 +1,7 @@
 require 'building'
 
 class TurfHouse < Building
-  TURF_HOUSE_TASKS = %w(hay raise-sheep)
+  TURF_HOUSE_TASKS = %w(hay raise-sheep cut-wood)
   Building::TASKS.merge!("TurfHouse" => TURF_HOUSE_TASKS)
   KEY = "th"
 
@@ -16,6 +16,8 @@ class TurfHouse < Building
       self.village.increment_resources("sheep", 1)
       self.village.increment_resources("straw", -30)
       self.village.increment_resources!("hay", -10)
+    elsif task.eql?('cut-wood')
+      self.village.increment_resources!('wood', 1)
     end
   end
   
