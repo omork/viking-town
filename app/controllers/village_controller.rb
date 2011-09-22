@@ -1,5 +1,5 @@
 class VillageController < ApplicationController
-  before_filter :user_signed_in?, :except => :show
+  before_filter :authenticate_user!, :except => :show
   
   def found
     fjord = current_user.fjords.find(params[:village][:fjord_id])

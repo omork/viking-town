@@ -1,5 +1,5 @@
 class BuildingController < ApplicationController
-  before_filter :user_signed_in?, :except => :show
+  before_filter :authenticate_user!, :except => :show
 
   def assign
     @building = current_user.building(params[:id])

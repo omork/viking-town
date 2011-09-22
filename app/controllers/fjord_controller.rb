@@ -1,5 +1,5 @@
 class FjordController < ApplicationController
-  before_filter :user_signed_in?, :except => [:show, :list]
+  before_filter :authenticate_user!, :except => [:show, :list]
   
   def list
     @fjords = Fjord.page(params[:page]).order('id DESC')
