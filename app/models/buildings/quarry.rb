@@ -5,7 +5,7 @@ class Quarry < Building
   KEY = "q"
   
   RARE = %w(gold diamond)
-  SEMI_PRECIOUS = %(silver ruby emerald saphire)
+  SEMI_PRECIOUS = %(silver ruby emerald sapphire)
   COMMON = %w(copper iron tin)
   
   def subclass_validations
