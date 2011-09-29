@@ -29,12 +29,8 @@ class Building < ActiveRecord::Base
     end
   end
   
-  # allow subclasses to perform their own validations without re-opening the class
-  # that:
-  # ruby-1.9.2-p180 :004 > v.buildings << Building.new(:x => 1, :y => 2, :type => "RoundHouse")
-  # => false 
-  # will validate without having to instantiate the subclass directly
-  def subclass_validations ; true ; end
+  # let everyone use the same random without repeating it everywhere.
+  def self.random(bound) ; 1 == Kernel.random(bound) ; end
   
   def allocate(task)
     raise InvalidTask.new("type has no tasks") unless TASKS.has_key?(self.type.to_s)
@@ -75,6 +71,13 @@ class Building < ActiveRecord::Base
       self.save!
     end
   end
+
+  # allow subclasses to perform their own validations without re-opening the class
+  # that:
+  # ruby-1.9.2-p180 :004 > v.buildings << Building.new(:x => 1, :y => 2, :type => "RoundHouse")
+  # => false 
+  # will validate without having to instantiate the subclass directly
+  def subclass_validations ; true ; end
   
   def ensure_position_is_immutable
     # once a building is positioned, it can't move
