@@ -1,5 +1,6 @@
 class Building < ActiveRecord::Base
   class InvalidTask < StandardError ; end
+  class DuplicateTask < StandardError ; end
   
   SIZE = [40, 20]
 
@@ -21,6 +22,13 @@ class Building < ActiveRecord::Base
 
   TASKS = {}
 
+  # allow subclasses to explode if they try to add a duplicate test (for safety!)
+  def self.verify_tasks(tasks)
+    tasks.each do |task|
+      raise DuplicateTask.new if Building::TASKS.values.include?(task)
+    end
+  end
+  
   # allow subclasses to perform their own validations without re-opening the class
   # that:
   # ruby-1.9.2-p180 :004 > v.buildings << Building.new(:x => 1, :y => 2, :type => "RoundHouse")

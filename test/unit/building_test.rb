@@ -55,4 +55,11 @@ class BuildingTest < ActiveSupport::TestCase
 
     assert_equal (village.width / 2.0).ceil, building.x
   end
+  
+  test "verify_tasks fails if the Building class has a name collision for that task (for example: you can't mill flour and wood)" do
+    Building::TASKS.merge!(:waffle_house => "syrup")
+    assert_raises Building::DuplicateTask do
+      Building::verify_tasks({:maple_trees => 'syrup'}.values)
+    end
+  end
 end
