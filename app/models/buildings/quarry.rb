@@ -4,9 +4,11 @@ class Quarry < Building
   Building::TASKS.merge!("Quarry" => %w(quary-stone cut-shaft))
   KEY = "q"
   
-  RARE = %w(gold diamond)
-  SEMI_PRECIOUS = %w(silver ruby emerald sapphire)
-  COMMON = %w(copper iron tin)
+  self.rarities = {
+    :rare => %w(gold diamond),
+    :semi_precious => %w(silver ruby emerald sapphire),
+    :common => %w(copper iron tin)
+  }
   
   def subclass_validations
     # check for duplicate quarries

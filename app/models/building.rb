@@ -22,7 +22,9 @@ class Building < ActiveRecord::Base
 
   TASKS = {}
 
-  # allow subclasses to explode if they try to add a duplicate test (for safety!)
+  # allow subclasses to explode if they try to add a duplicate test (for safety!).
+  # I'm not entirely sure this is necessary. Tasks are scoped to classes. The 
+  # only real problems would be in which resources they create/consume
   def self.verify_tasks(tasks)
     tasks.each do |task|
       raise DuplicateTask.new if Building::TASKS.values.include?(task)
