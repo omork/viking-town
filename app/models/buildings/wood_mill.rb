@@ -1,14 +1,17 @@
 require 'building'
+require 'rare_item_calculation'
 
 class WoodMill < Building
+  include RareItemCalculation
+
   WOODMILL_TASKS = %w(planks)
   Building::TASKS.merge!("WoodMill" => WOODMILL_TASKS)
   KEY = "wm"
   
   # while milling you might come across a tree which has an knee. Makes for good ships.
-  self.rarities = {
+  def rarities ; return {
     :semi_precious => %w(knees),
-  }
+  } ; end
 
   def do_task(task, times = 1)
     if task.eql?('planks') && 

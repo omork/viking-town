@@ -32,7 +32,7 @@ class Building < ActiveRecord::Base
   end
   
   # let everyone use the same random without repeating it everywhere.
-  def self.random(bound) ; 1 == Kernel.random(bound) ; end
+  def self.random(bound) ; Random.rand(bound) ; end
   
   def allocate(task)
     raise InvalidTask.new("type has no tasks") unless TASKS.has_key?(self.type.to_s)

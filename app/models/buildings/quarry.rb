@@ -1,15 +1,17 @@
 require 'building'
+require 'rare_item_calculation'
 
 class Quarry < Building
-  extend RareItemCalculation
+  include RareItemCalculation
+
   Building::TASKS.merge!("Quarry" => %w(quary-stone cut-shaft))
   KEY = "q"
   
-  self.rarities = {
+  def rarities ; return {
     :rare => %w(gold diamond),
     :semi_precious => %w(silver ruby emerald sapphire),
     :common => %w(copper iron tin)
-  }
+  } ; end
   
   def subclass_validations
     # check for duplicate quarries
