@@ -7,6 +7,9 @@ module RareItemCalculation
   def assign_rarities(village, times, rare = [], semi_precious = [], common = [])
     results = {} # cache the results so we only do (at worst) rarities.keys.count updates to the village
 
+    # don't allow an infinite calculation. If they've been gone for a month they don't get a giant chunk of resources
+    times = [times, 24 * 60 * 60 * 2 / 5].max
+
     1.upto(times) do
       chances.keys.each do |rarity|
         next unless rarities.has_key?(rarity)
