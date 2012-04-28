@@ -26,4 +26,8 @@ class VillageTest < ActiveSupport::TestCase
     
     assert_equal ["RoundHouse"], user.fjords.last.villages.last.building_types
   end
+
+  test "villages have a roundhouse available by #roundhouse" do
+    assert Factory(:village).roundhouse.is_a?(RoundHouse)
+  end
 end
