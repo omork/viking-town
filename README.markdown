@@ -14,3 +14,8 @@ Viking-Town is a city-building game based on a feudal empire of fjords and villa
      \ `---( O )( O )( O )( O )( O )-' /  
       `.    `-'  `-'  `-'  `-'  `-'  .' 
         `---------------------------'
+
+Installation
+============
+
+There are no native gems or anything particularly complicated. It should be pretty straight forward. At this point VT uses sqlite. Migrations are straight forward. Run `rake db:setup` and then either `rails server` (to start) or `rake` (for tests).
