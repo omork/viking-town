@@ -98,13 +98,20 @@ HT.Hexagon.prototype.draw = function(ctx) {
 	
 	if(this.Id)
 	{
+                ctx.fillStyle = this.fillStyle;
+                ctx.fill();
+
 		//draw text for debugging
 		ctx.fillStyle = "black"
 		ctx.font = "bolder 8pt Trebuchet MS,Tahoma,Verdana,Arial,sans-serif";
 		ctx.textAlign = "center";
 		ctx.textBaseline = 'middle';
 		//var textWidth = ctx.measureText(this.Planet.BoundingHex.Id);
-		ctx.fillText(this.Id, this.MidPoint.X, this.MidPoint.Y);
+                if(this.building) {
+		  ctx.fillText(this.building.type, this.MidPoint.X, this.MidPoint.Y);
+                } else {
+		  ctx.fillText(this.Id, this.MidPoint.X, this.MidPoint.Y);
+                }
 	}
 	
 	if(this.PathCoOrdX !== null && this.PathCoOrdY !== null && typeof(this.PathCoOrdX) != "undefined" && typeof(this.PathCoOrdY) != "undefined")

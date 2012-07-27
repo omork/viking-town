@@ -6,65 +6,105 @@ buildings:
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-  function toggle_task_form(id) { 
+  function hide_task_and_build_forms() {
     $("div.new-building-form").hide();
     $("div.building-form").hide();
+  }
+  function toggle_task_form(id) {
+    hide_task_and_build_forms();
     $("div#building-form-" + id).toggle();
   }
   function toggle_build_form(x,y) {
-    $("div.new-building-form").hide();
-    $("div.building-form").hide();
-    $("div#new-building-form-" + x + "-" + y).toggle(); 
+    hide_task_and_build_forms();
+    $('#new-building-x').val(x);
+    $('#new-building-y').val(y);
+    $("div#new-building-form").toggle();
   }
 </script>
 
-<div id="village" style="position:relative; width:<%= Village::WIDTH %>px; height:<%= Village::HEIGHT %>px; border: solid white 1px">
-  <% 1.upto(@village.width) do |x| %>
-    <% 1.upto(@village.height) do |y|%>
-      <% if building = @village.building_at(x,y) %>
-        <a onClick="toggle_task_form(<%= building.id %>)">
-          <div id="building-<%= building.id %>" class="building" style="
-          left:<%= (building.x - 1) * Building::SIZE.first %>px; 
-          top:<%= (building.y - 1) * Building::SIZE.last %>px; 
-          width:<%= Building::SIZE.first%>px" class="doit"><%= building.class::KEY %></div>
-        </a>
-      <% else %>
-        <a onClick="toggle_build_form(<%= x %>, <%= y %>)">
-          <div id="building-<%= x %>-<%= y %>" class="empty" style="
-            left:<%= (x - 1) * Building::SIZE.first %>px; 
-            top:<%= (y - 1) * Building::SIZE.last %>px; 
-            width:<%= Building::SIZE.first%>px" class="doit">empty</div>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+<canvas id="hexCanvas">
+HTML5 required.
+</canvas>
 
-<% 1.upto(@village.width) do |x| %>
-  <% 1.upto(@village.height) do |y|%>
-    <% if building = @village.building_at(x,y) %>
-      <div id="building-form-<%= building.id %>" class="building-form">
-        <%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
-          <%= f.label :task %>
-          <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
-          <%= f.submit "do" %></p>
-        <% end %>
-      </div>
-      <script type="text/javascript" charset="utf-8">$("#building-form-<%= building.id %>").hide();</script>
-    <% else %>
-      <div id="new-building-form-<%= x %>-<%= y %>" class="new-building-form">
-        <%= form_for Building.new, :url => {:controller => "building", :action => "build", :id => @village.id}, :method => :post do |f| %>
-          <%= f.hidden_field :x, :value => x %>
-          <%= f.hidden_field :y, :value => y %>
-          <%= f.label :task %>
-          <%= select :building, :type, Building::TASKS.keys.collect { |n| [n , n] } %>
-          <%= f.submit "do" %></p>
-        <% end %>
-      </div>
-      <script type="text/javascript" charset="utf-8">$("#new-building-form-<%= x %>-<%= y %>").hide();</script>
+<%= javascript_include_tag "libs/HexagonTools.js" %>
+<%= javascript_include_tag "libs/Grid.js" %>
+<%= javascript_include_tag "libs/HexCalcs.js" %>
+
+<script type="text/javascript">
+  var GridWidth  = <%= @village.width %> * 75;
+  var GridHeight = <%= @village.height %> * 75;
+
+  HT.Hexagon.Static.HEIGHT = 50;
+  HT.Hexagon.Static.WIDTH  = 50;
+  HT.Hexagon.Static.SIDE   = 25;
+
+  var grid = new HT.Grid(GridWidth, GridHeight);
+  var canvas = document.getElementById("hexCanvas");
+  canvas.width = GridWidth;
+  canvas.height = GridHeight;
+  var ctx = canvas.getContext('2d');
+  var buildings = $.makeArray(<%= @village.buildings.collect(&:attributes).to_json.html_safe %>);
+  var building_coordinates = {}
+  $.map(buildings, function(element, idx) {
+    building_coordinates[[element.x, element.y]] = element
+  });
+
+  function clearGrid() {
+    ctx.clearRect(0, 0, GridWidth, GridHeight);
+    var hex;
+    for(var h in grid.Hexes)
+    {
+      hex = grid.Hexes[h];
+      if(hex.building = building_coordinates[[hex.PathCoOrdX, hex.PathCoOrdY]]) { hex.fillStyle = 'green'; }
+      else { hex.fillStyle = 'red'; }
+      hex.selected = false;
+      hex.draw(ctx);
+    }
+  };
+
+  clearGrid();
+
+  $(document).bind('mouseup',function(e){
+    clearGrid();
+    var x = e.pageX - $('#hexCanvas').offset().left;
+    var y = e.pageY - $('#hexCanvas').offset().top;
+    var hex = grid.GetHexAt( new HT.Point(x, y) );
+    if(!hex) { return }
+    window.console.log(hex);
+    hex.selected = true;
+    hex.draw(ctx);
+
+    hide_task_and_build_forms();
+    if(!!hex.building) { toggle_task_form(hex.building.x, hex.building.y); }
+    else { toggle_build_form(hex.PathCoOrdX, hex.PathCoOrdY); }
+  });
+</script>
+
+
+
+<% @village.buildings.each do |building| %>
+  <div id="building-form-<%= building.id %>" class="building-form">
+    <%= form_for building, :url => {:controller => "building", :action => "assign", :id => building.id} do |f| %>
+      <%= f.label :task %>
+      <%= select :building, :task, Building::TASKS[building.type].collect { |n| [n , n] }, :selected => building.task %>
+      <%= f.submit "do" %></p>
     <% end %>
-  <% end %>
+  </div>
+  <script type="text/javascript" charset="utf-8">$("#building-form-<%= building.id %>").hide();</script>
 <% end %>
 
+<div id="new-building-form" class="new-building-form">
+  <%= form_for Building.new, :url => {:controller => "building", :action => "build", :id => @village.id}, :method => :post do |f| %>
+    <%= f.hidden_field :x, :value => nil, :id => 'new-building-x' %>
+    <%= f.hidden_field :y, :value => nil, :id => 'new-building-y' %>
+    <%= f.label :task %>
+    <%= select :building, :type, Building::TASKS.keys.collect { |n| [n , n] } %>
+    <%= f.submit "do" %></p>
+  <% end %>
+</div>
+<script type="text/javascript" charset="utf-8">$("#new-building-form").hide();</script>
+
+<br>
 resources:
 <pre><%= @village.resources.inspect.gsub(',', ",\n") %></pre>
 
