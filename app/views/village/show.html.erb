@@ -12,7 +12,7 @@ buildings:
   }
   function toggle_task_form(id) {
     hide_task_and_build_forms();
-    $("div#building-form-" + id).toggle();
+    $("div#building-form-" + id).show();
   }
   function toggle_build_form(x,y) {
     hide_task_and_build_forms();
@@ -31,8 +31,8 @@ HTML5 required.
 <%= javascript_include_tag "libs/HexCalcs.js" %>
 
 <script type="text/javascript">
-  var GridWidth  = <%= @village.width %> * 75;
-  var GridHeight = <%= @village.height %> * 75;
+  var GridWidth  = <%= @village.width %> * 40;
+  var GridHeight = <%= @village.height %> * 60;
 
   HT.Hexagon.Static.HEIGHT = 50;
   HT.Hexagon.Static.WIDTH  = 50;
@@ -43,7 +43,7 @@ HTML5 required.
   canvas.width = GridWidth;
   canvas.height = GridHeight;
   var ctx = canvas.getContext('2d');
-  var buildings = $.makeArray(<%= @village.buildings.collect(&:attributes).to_json.html_safe %>);
+  var buildings = $.makeArray(<%= @village.buildings_as_json %>);
   var building_coordinates = {}
   $.map(buildings, function(element, idx) {
     building_coordinates[[element.x, element.y]] = element
@@ -56,7 +56,7 @@ HTML5 required.
     {
       hex = grid.Hexes[h];
       if(hex.building = building_coordinates[[hex.PathCoOrdX, hex.PathCoOrdY]]) { hex.fillStyle = 'green'; }
-      else { hex.fillStyle = 'red'; }
+      else { hex.fillStyle = '#AC968F'; }
       hex.selected = false;
       hex.draw(ctx);
     }
@@ -70,12 +70,11 @@ HTML5 required.
     var y = e.pageY - $('#hexCanvas').offset().top;
     var hex = grid.GetHexAt( new HT.Point(x, y) );
     if(!hex) { return }
-    window.console.log(hex);
     hex.selected = true;
     hex.draw(ctx);
 
     hide_task_and_build_forms();
-    if(!!hex.building) { toggle_task_form(hex.building.x, hex.building.y); }
+    if(!!hex.building) { toggle_task_form(hex.building.id); }
     else { toggle_build_form(hex.PathCoOrdX, hex.PathCoOrdY); }
   });
 </script>

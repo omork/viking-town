@@ -9,8 +9,8 @@ HT.Grid = function(/*double*/ width, /*double*/ height) {
 	var HexagonsByXOrYCoOrd = {}; //Dictionary<int, List<Hexagon>>
 
 	var row = 0;
-	var y = 0.0;
-	while (y + HT.Hexagon.Static.HEIGHT <= height)
+	var y = 3.0;
+	while (y + HT.Hexagon.Static.HEIGHT < height)
 	{
 		var col = 0;
 
@@ -25,7 +25,7 @@ HT.Grid = function(/*double*/ width, /*double*/ height) {
 		}
 		
 		var x = offset;
-		while (x + HT.Hexagon.Static.WIDTH <= width)
+		while (x + HT.Hexagon.Static.WIDTH < width)
 		{
 		    var hexId = this.GetHexId(row, col);
 			var h = new HT.Hexagon(hexId, x, y);
