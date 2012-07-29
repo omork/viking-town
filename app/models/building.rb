@@ -98,4 +98,8 @@ class Building < ActiveRecord::Base
     end    
     true
   end
+
+  def key
+    self.class::KEY
+  end
 end

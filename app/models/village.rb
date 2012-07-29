@@ -17,7 +17,8 @@ class Village < ActiveRecord::Base
   after_create :create_resources
   
   def create_first_building
-    rh = RoundHouse.new(:village_id => self.id, :x => (self.width / 2.0).ceil, :y => (self.height / 2.0).ceil)
+    # hex grid makes this calculation weird
+    rh = RoundHouse.new(:village_id => self.id, :x => (self.width / 2.0).ceil, :y => (self.width / 2.0).floor)
     rh.save!
     self.buildings << rh
   end
@@ -42,5 +43,9 @@ class Village < ActiveRecord::Base
   def increment_resources!(resource, amount)
     self.increment_resources(resource, amount)
     self.village_resources.save!
+  end
+
+  def buildings_as_json
+    self.buildings.collect { |b| b.attributes.merge(:key => b.key) }.to_json.html_safe
   end
 end

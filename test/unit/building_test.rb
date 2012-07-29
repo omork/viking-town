@@ -38,8 +38,9 @@ class BuildingTest < ActiveSupport::TestCase
     village = user.fjords.first.villages.first
     building = user.buildings.first
     
+    # hex grid makes this calculation weird
     assert_equal (village.width / 2.0).ceil, building.x
-    assert_equal (village.height / 2.0).ceil, building.y
+    assert_equal (village.width / 2.0).floor, building.y
     
     building.x = 9001 # its over nine thousand
     building.save!
@@ -61,5 +62,9 @@ class BuildingTest < ActiveSupport::TestCase
     assert_raises Building::DuplicateTask do
       Building::verify_tasks({:maple_trees => 'syrup'}.values)
     end
+  end
+
+  test "building#key respects per class constants" do
+    assert_equal "mms", MeatMongerShop.new.key
   end
 end
