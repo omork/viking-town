@@ -10,7 +10,7 @@ class Quarry < Building
   def rarities ; return {
     :rare => %w(gold diamond),
     :semi_precious => %w(silver ruby emerald sapphire),
-    :common => %w(copper iron tin)
+    :common => %w(coal sulfur copper iron tin)
   } ; end
   
   def subclass_validations

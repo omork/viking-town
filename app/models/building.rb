@@ -102,4 +102,17 @@ class Building < ActiveRecord::Base
   def key
     self.class::KEY
   end
+
+  # needs is a need/quantity pair where the need is a resource (wood, tin, etc).
+  # call this if you have multiple needs and don't want to take until you're
+  # sure there's enough for each need.
+  def adjust_times_for_needs(needs, times)
+    needs.each do |need, quantity|
+      available = self.village.resources[need] || 0
+      if available < quantity * times
+        times = available / quantity
+      end
+    end
+    times
+  end
 end

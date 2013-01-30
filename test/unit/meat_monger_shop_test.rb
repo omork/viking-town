@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MeatMongerShopTest < ActiveSupport::TestCase
-  test "when a meant man slaughters we get delights" do
+  test "when a meat man slaughters we get delights" do
     user = user_with_nation_and_fjord
     village = village_with_single_villager_for_user(user)
 
