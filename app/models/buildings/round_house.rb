@@ -13,6 +13,7 @@ class RoundHouse < Building
   
   def add_local_chief
     self.villagers.create!(:title => :chief, :village_id => self.village_id)
+    2.times { self.villagers.create!(:title => :thrall, :village_id => self.village_id) }
   end
   
   def do_task(task, times)

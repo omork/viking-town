@@ -6,7 +6,7 @@ class BuildingTest < ActiveSupport::TestCase
     user = user_with_nation_and_fjord
     user.fjords.first.villages.create! :name =>'asdf'
   
-    assert_equal v + 1, Villager.count
+    assert_equal v + 3, Villager.count
     assert_equal "chief", user.fjords.first.villages.first.buildings.first.villagers.first.title
   end
   
