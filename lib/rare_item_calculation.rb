@@ -29,6 +29,7 @@ module RareItemCalculation
 private
   # this makes our worst case iteration 29 * chances.keys * number of buildings in village
   def opportunitities_in(times)
+    return 0 if times < 0
     return case times
     when 0..600 then 1
     when 601..1800 then 2
