@@ -61,11 +61,11 @@ class Building < ActiveRecord::Base
 
     if self.completed_at && Time.now > self.completed_at
       # how often we've done it (since we passed completed_at) + 1 (since we know we did it once)
-      times = ((Time.now - self.completed_at) / self.calculate_duration_of(self.task).to_f).ceil
+      times = ((Time.now - self.assigned_at) / self.calculate_duration_of(self.task).to_f).floor
 
       # how much time do we have remaining on the current duration?
       remaining = ((self.assigned_at - self.completed_at) % self.calculate_duration_of(self.task))
-      
+
       self.do_task(self.task, times)
       
       self.assigned_at = Time.now
@@ -92,7 +92,7 @@ class Building < ActiveRecord::Base
     if type.eql?(value) && 
       (self.new_record? || self.type_changed?) &&
       self.village_id? &&
-      self.village.buildings_types.include?(type)
+      self.village.building_types.include?(type)
       self.errors.add(:type, "Cannot have more than one #{type} per village")
       return false
     end    

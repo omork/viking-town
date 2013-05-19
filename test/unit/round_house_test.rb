@@ -10,18 +10,14 @@ class BuildingTest < ActiveSupport::TestCase
     assert_equal "chief", user.fjords.first.villages.first.buildings.first.villagers.first.title
   end
   
-  test "when a roundhouse brews, it makes beer, not brew" do
+  test "brew and brawl" do
     user = user_with_nation_and_fjord
     user.fjords.first.villages << Factory(:village)
-    building = user.buildings.first
-    task = "brew"
-    assert_nil user.fjords.first.villages.first.resources['beer']
-    
-    building.allocate(task)
-    building.assigned_at = Time.now - 20
-    building.completed_at = Time.now - 15
-    building.check_task
-    
-    assert_equal 4, user.fjords.first.villages.first.resources['beer']
+    building = offset_assigned_at(user.buildings.first, 5) { |b| b.allocate('brawl') }
+    assert_equal 1, user.fjords.first.villages.first.resources['brawl']
+
+    # brew produces beers
+    building = offset_assigned_at(user.buildings.first, 5) { |b| b.allocate('brew') }
+    assert_equal 1, user.fjords.first.villages.first.resources['beer']
   end
 end

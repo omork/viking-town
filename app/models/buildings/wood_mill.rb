@@ -14,9 +14,9 @@ class WoodMill < Building
   } ; end
 
   def do_task(task, times = 1)
-    if task.eql?('planks') && 
+    if task.eql?('planks') &&
       (self.village.resources['wood'] || 0) >= 2
-      
+
       times = self.village.village_resources.take! 'wood', 2, times
 
       self.village.increment_resources("planks", 1 * times)

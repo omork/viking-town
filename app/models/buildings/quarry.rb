@@ -4,7 +4,7 @@ require 'rare_item_calculation'
 class Quarry < Building
   include RareItemCalculation
 
-  Building::TASKS.merge!("Quarry" => %w(quary-stone cut-shaft))
+  Building::TASKS.merge!("Quarry" => %w(quarry-stone cut-shaft))
   KEY = "q"
   
   def rarities ; return {
@@ -20,10 +20,10 @@ class Quarry < Building
   
   def do_task(task, times)
     if task.eql?('quarry-stone')
-      self.default_do_task(task, times)
+      self.default_do_task('stone', times)
     else
       # stone is a by-product of all other tasks, but it's less
-      self.default_do_task('quarry-stone', Kernel.rand(10) * times)
+      self.default_do_task('stone', Building.random(10) * times)
       self.village.increment_resources('shaft-depth', times)
       
       self.assign_rarities!(self.village, times)

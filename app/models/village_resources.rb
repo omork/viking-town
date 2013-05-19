@@ -8,16 +8,16 @@ class VillageResources < ActiveRecord::Base
   end
 
   def take!(resource, quantity, times)
-    needed = quantity * times
     available = self.resources[resource]
     return 0 if available.nil?
+    needed = quantity * times
     taken = available - needed
     if taken < 0
       times = self.resources[resource] / quantity
-      self.resources[resource] = 0
-    else
-      self.resources[resource] -= needed
+      needed = quantity * times
     end
+
+    self.resources[resource] -= needed
     times
   end
 end

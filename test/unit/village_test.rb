@@ -30,4 +30,10 @@ class VillageTest < ActiveSupport::TestCase
   test "villages have a roundhouse available by #roundhouse" do
     assert Factory(:village).roundhouse.is_a?(RoundHouse)
   end
+
+  test "#building_at" do
+    village = Factory(:village)
+    building = village.buildings.last
+    assert village.building_at(building.x, building.y)
+  end
 end

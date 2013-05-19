@@ -67,4 +67,28 @@ class BuildingTest < ActiveSupport::TestCase
   test "building#key respects per class constants" do
     assert_equal "mms", MeatMongerShop.new.key
   end
+
+  test "#ensure_exactly_one_of works in all cases" do
+    user, village = user_and_village
+    village.buildings << RoundHouse.new
+    assert_equal false, village.save
+    assert_equal false, village.errors.empty?
+  end
+
+  test "#adjust_times_for_needs" do
+    user, village = user_and_village
+    village.increment_resources!('coal', 10)
+    times = 20
+    times = village.buildings.last.adjust_times_for_needs([['coal', 10]], times)
+    assert_equal 1, times
+  end
+
+  test "#default_do_task" do
+    user, village = user_and_village
+    village.buildings << Building.new(:x => 0, :y => 0, :type => 'Building')
+    assert village.save
+    village.buildings.last.do_task('a', 1)
+    village.reload
+    assert_equal 1, village.resources['a']
+  end
 end

@@ -32,8 +32,14 @@ class ActiveSupport::TestCase
   def offset_assigned_at(building, duration)
     yield building
     building.completed_at = Time.now
-    building.assigned_at= Time.now - duration
+    building.assigned_at  = duration.seconds.ago
     assert building.save!
     return Building.find(building.id)
+  end
+
+  def user_and_village
+    user = user_with_nation_and_fjord
+    village = village_with_single_villager_for_user(user)
+    return user,village
   end
 end

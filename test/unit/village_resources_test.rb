@@ -18,5 +18,9 @@ class VillageResourcesTest < ActiveSupport::TestCase
     village.resources['wood'] = 20
     village.village_resources.take! 'wood', 2, 10
     assert_equal village.resources['wood'], 0
+
+    village.resources['wood'] = 5
+    village.village_resources.take! 'wood', 2, 10
+    assert_equal 1, village.resources['wood']
   end
 end

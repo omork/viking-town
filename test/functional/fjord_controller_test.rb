@@ -15,11 +15,13 @@ class FjordControllerTest < ActionController::TestCase
     assert assigns :fjords
   end
 
-  test "should get mine" do
+  def test_mine(params=nil)
     user = Factory(:user, :nation => Factory(:nation))
     sign_in user
 
-    get :mine
+    post :settle, {:fjord => {}}
+
+    get :mine, params
     assert_response :success
     assert assigns :fjords
 
@@ -28,17 +30,12 @@ class FjordControllerTest < ActionController::TestCase
     end
   end
 
+  test "should get mine" do
+    test_mine
+  end
+
   test "should get mine with specific page" do
-    user = Factory(:user, :nation => Factory(:nation))
-    sign_in user
-
-    get :mine, { :page =>1 }
-    assert_response :success
-    assert assigns :fjords
-
-    assigns[:fjords].each do |fjord|
-      assert user.fjords.include?(fjord)
-    end
+    test_mine({:fjord => {}})
   end
 
   test "should start a settlement" do
