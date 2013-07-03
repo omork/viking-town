@@ -15,10 +15,14 @@ class Village < ActiveRecord::Base
 
   after_create :create_first_building
   after_create :create_resources
-  
+
+  attr_accessible :name
+
   def create_first_building
     # hex grid makes this calculation weird
-    rh = RoundHouse.new(:village_id => self.id, :x => (self.width / 2.0).ceil, :y => (self.width / 2.0).floor)
+    rh = RoundHouse.new(village_id: self.id,
+                        x: (self.width / 2.0).ceil,
+                        y: (self.width / 2.0).floor)
     rh.save!
     self.buildings << rh
   end

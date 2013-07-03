@@ -15,6 +15,8 @@ Viking-Town is a city-building game based on a feudal empire of fjords and villa
       `.    `-'  `-'  `-'  `-'  `-'  .' 
         `---------------------------'
 
+It features diety affinity (where a particular village has a particular skill), cards-per-viking, ship building and adventuring via companion iphone app.
+
 Installation
 ============
 

@@ -6,9 +6,9 @@ class BuildingControllerTest < ActionController::TestCase
     village = village_with_single_villager_for_user(user)
     
     sign_in user
-    put :assign, :id => village.buildings.first.id, :building => {:task => 'brew'}
+    put :assign, :id => village.roundhouse.id, :building => {:task => 'brew'}
     
-    assert_equal 'brew', village.buildings.first.task
+    assert_equal 'brew', village.roundhouse.reload.task
   end
   
   test "building a building works and has coordinates and the right type" do

@@ -4,5 +4,8 @@
   <%= f.label :name %>:
   <%= f.text_field :name %><br />
 
+  <%= f.label :god %>
+  <%= f.select(:god_id, God.all.collect {|g| [g.id, g.name] }) %>
+
   <%= f.submit %>
 <% end %>

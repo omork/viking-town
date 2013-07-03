@@ -1,9 +1,12 @@
 source 'http://rubygems.org'
 
-gem "rails", "3.1.0.rc1"
+gem "rails", "4.0"
 gem 'sqlite3'
+gem "protected_attributes"
 
-gem 'devise'
+gem 'devise', "3.0.0.rc", git: "https://github.com/plataformatec/devise.git"
+gem 'devise-encryptable', git: "https://github.com/plataformatec/devise-encryptable.git"
+
 gem 'will_paginate'
 
 group :development, :test do

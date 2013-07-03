@@ -28,5 +28,4 @@ class QuarryTest < ActiveSupport::TestCase
     village.reload
     assert_equal 100, village.resources['stone']
   end
-
 end

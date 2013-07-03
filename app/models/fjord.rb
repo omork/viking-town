@@ -1,8 +1,7 @@
 class Fjord < ActiveRecord::Base
   belongs_to :user
   
-  # the nation can't be changed once the fjord is created
-  belongs_to :nation, :readonly => true
+  belongs_to :nation
   attr_readonly :nation_id
   
   has_many :ships
@@ -16,4 +15,6 @@ class Fjord < ActiveRecord::Base
   
   # will_paginate
   self.per_page = 10
+  
+  attr_accessible :name, :nation_id
 end

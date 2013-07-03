@@ -6,22 +6,16 @@ class User < ActiveRecord::Base
   has_many :fjords
   has_many :ships, :through => :fjords
   has_many :vikings, :through => :fjords
-  has_many :villages, :through => :fjords, :readonly => false
+  has_many :villages, :through => :fjords
   belongs_to :nation
   
   validates :nation, :presence => true, :on => :update
-  
-  # all of the buildings for self
-  def buildings(options = {})
-    vids = { :village_id => self.village_ids }
-    options.has_key?(:conditions) ? options[:conditions].merge!(vids) : options[:conditions] = vids
-    Building.find(:all, options)
+
+  def buildings
+    Building.where(village_id: self.village_ids)
   end
-  
-  # exactly one building owned by self
-  def building(id, options = {})
-    vids = { :village_id => self.village_ids, :id => id }
-    options.has_key?(:conditions) ? options[:conditions].merge!(vids) : options[:conditions] = vids
-    Building.find(:first, options)
+
+  def building(id)
+    self.buildings.where(id: id).first
   end
 end
