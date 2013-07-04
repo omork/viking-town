@@ -5,7 +5,7 @@
 "Dagr","God of the daytime, son of Delling and Nótt."
 "Delling","God of dawn and father of Dagr by Nótt."
 "Eir","Goddess of healing."
-"Easter", "Goddess of spring."
+"Easter","Goddess of spring."
 "Forseti","God of justice, peace and truth. Son of Baldr and Nanna."
 "Fitch","God of ruling and arbitration. Son of Eir and Gmot.""
 "Freya","Goddess of love, fertility, and battle. Consort: Óðr. Committed Suicide during Ragnarok."
@@ -25,16 +25,16 @@
 "Kvasir","God of inspiration. Killed by Dwarves."
 "Lofn","Goddess of forbidden loves."
 "Loki","Trickster and god of mischief . Consort: Sigyn (also called Saeter). Killed by Heimdall."
-"Magni, "God of strength. Son of Thor.
+"Magni","God of strength. Son of Thor.
 "Máni","God of Moon."
 "Mímir","Óðinn´s uncle. Decapitated by Vanir."
 "Nanna","An Ásynja married with Baldr and mother to Forseti. Died because of Baldur's death."
 "Nerþus","A goddess mentioned by Tacitus. Her name is connected to that of Njörðr."
 "Njörðr","God of sea, wind, fish, and wealth. Killed in Ragnarok."
 "Nótt","Goddess of night, daughter of Narvi and mother of Auð, Jörð and Dagr by Naglfari, Annar and Delling, respectively."
-"Odin The "All Father" (The Ruler of the gods). Swallowed by Fenrir.
+"Odin","The "All Father" (The Ruler of the gods). Swallowed by Fenrir.
 Sága","An obscure goddess, possibly another name for Frigg."
-"Ran", "sGod of the ocean"
+"Ran","sGod of the ocean"
 Sif","Wife of Thor."
 "Sjöfn","Goddess of love."
 "Skaði","Goddess of winter Njörðr's wife."

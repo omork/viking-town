@@ -36,4 +36,9 @@ class VillageTest < ActiveSupport::TestCase
     building = village.buildings.last
     assert village.building_at(building.x, building.y)
   end
+
+  test "god is assigned at creation time" do
+    village = Factory(:village)
+    assert village.god
+  end
 end

@@ -9,14 +9,20 @@ class Village < ActiveRecord::Base
   belongs_to :fjord
   
   has_one :village_resources
+  belongs_to :god
   delegate :resources, :to => :village_resources
 
   validates :fjord, :presence => true, :on => :update
 
-  after_create :create_first_building
-  after_create :create_resources
+  after_create  :create_first_building
+  after_create  :create_resources
+  before_create :assign_god
 
   attr_accessible :name
+
+  def assign_god
+    self.god_id = Random.new.rand(God.first.id..God.last.id)
+  end
 
   def create_first_building
     # hex grid makes this calculation weird

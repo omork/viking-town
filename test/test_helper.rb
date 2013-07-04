@@ -13,7 +13,9 @@ end
 
 class ActiveSupport::TestCase
   include FactoryGirl
-  
+
+  God.load_from_file('gods.txt')
+
   def user_with_nation_and_fjord
     user = Factory(:user, :nation => Factory(:nation))
     user.fjords << Factory(:fjord, :nation => user.nation)

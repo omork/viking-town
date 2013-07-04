@@ -8,5 +8,7 @@ class CreateGods < ActiveRecord::Migration
     end
 
     add_reference :villages, :god, index: true
+
+    God.load_from_file(Rails.root.join("gods.txt"))
   end
 end
