@@ -2,6 +2,9 @@ class God < ActiveRecord::Base
   attr_accessible :name, :description, :perks
   serialize :perks
 
+  has_many :villages
+  has_many :sacrifices
+
   POSSIBLE_PERKS = [:ferocity, :honor, :virility, :foresight]
 
   # this is really only needed for setting up gods one time, but where else

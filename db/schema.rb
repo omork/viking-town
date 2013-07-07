@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130525032920) do
+ActiveRecord::Schema.define(version: 20130705211048) do
 
   create_table "buildings", force: true do |t|
     t.integer  "village_id"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20130525032920) do
     t.datetime "updated_at"
     t.string   "name"
   end
+
+  create_table "sacrifices", force: true do |t|
+    t.text     "resources"
+    t.integer  "god_id"
+    t.integer  "village_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sacrifices", ["god_id"], name: "index_sacrifices_on_god_id"
+  add_index "sacrifices", ["village_id"], name: "index_sacrifices_on_village_id"
 
   create_table "ships", force: true do |t|
     t.integer  "fjord_id"

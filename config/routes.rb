@@ -1,4 +1,6 @@
 VikingTown::Application.routes.draw do
+  resources :sacrifices, except: [:destroy, :delete, :edit, :update]
+
   delete "fjord/abandon/:id",    :controller => :fjord,    :action => :abandon
   delete "village/abandon/:id",  :controller => :village,  :action => :abandon
 

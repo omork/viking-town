@@ -10,7 +10,7 @@ gem 'devise-encryptable', git: "https://github.com/plataformatec/devise-encrypta
 gem 'will_paginate'
 
 group :development, :test do
-  gem 'ruby-debug19'
+  gem 'debugger'
   gem 'awesome_print'
   gem 'pry'
 end
