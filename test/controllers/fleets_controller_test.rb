@@ -64,7 +64,7 @@ class FleetsControllerTest < ActionController::TestCase
     delete :remove, ship_id: ship.id, id: @fleet.id
     assert_redirected_to action: :show, id: assigns(:fleet).id
 
-    put :add, ship_id: 901328944943598, id: @fleet.id
+    delete :remove, ship_id: 901328944943598, id: @fleet.id
     assert_redirected_to action: :show, id: assigns(:fleet).id
     assert flash[:error]
   end
