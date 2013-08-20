@@ -1,0 +1,26 @@
+<h1>Listing fleets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ship</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fleets.each do |fleet| %>
+      <tr>
+        <td><%= fleet.ships.count %></td>
+        <td><%= link_to 'Show', fleet %></td>
+        <td><%= link_to 'Disband', fleet, method: :delete, action: :disband, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fleet', new_fleet_path %>

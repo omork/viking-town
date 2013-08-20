@@ -7,13 +7,6 @@ GIT
       simplecov-html (~> 0.7.1)
 
 GIT
-  remote: git://github.com/floehopper/mocha.git
-  revision: 3a06123daaf5d0fbc6cf93342aa173e94d41fb85
-  specs:
-    mocha (0.11.3)
-      metaclass (~> 0.0.1)
-
-GIT
   remote: https://github.com/plataformatec/devise-encryptable.git
   revision: 4997273e8f9671c05ad621e9adc53393247f49c8
   specs:
@@ -88,6 +81,8 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     minitest (4.7.5)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
     multi_json (1.7.7)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
@@ -151,7 +146,7 @@ DEPENDENCIES
   devise-encryptable!
   factory_girl_rails (= 1.1.beta1)
   flog
-  mocha!
+  mocha (~> 0.14.0)
   protected_attributes
   pry
   rails (= 4.0)

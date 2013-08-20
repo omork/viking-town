@@ -3,6 +3,7 @@ class CreateShips < ActiveRecord::Migration
     create_table :ships do |t|
       t.integer :fjord_id
       t.integer :user_id
+      t.string  :name
       t.timestamps
     end
     

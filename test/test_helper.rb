@@ -4,8 +4,8 @@ SimpleCov.start
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'mocha/setup'
 require 'factory_girl'
-require 'mocha'
 
 class ActionController::TestCase
   include Devise::TestHelpers
@@ -43,5 +43,11 @@ class ActiveSupport::TestCase
     user = user_with_nation_and_fjord
     village = village_with_single_villager_for_user(user)
     return user,village
+  end
+
+  def user_and_fleet
+    user = user_with_nation_and_fjord
+    fleet = user.fleets.create!
+    return user, fleet
   end
 end

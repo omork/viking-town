@@ -2,10 +2,12 @@ require 'test_helper'
 
 class ShipTest < ActiveSupport::TestCase
   test "user can have ships" do
-    user = user_with_nation_and_fjord
+    user, fleet = user_and_fleet
     
-    assert_equal 0, user.ships.count
-    user.fjords.last.ships << Factory(:ship)
-    assert_equal 1, user.ships.count
+    assert_difference('user.ships.count') do
+      ship = Factory(:ship)
+      assert ship.save
+      user.fjords.last.ships << ship
+    end
   end
 end

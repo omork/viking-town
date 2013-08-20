@@ -1,0 +1,17 @@
+<%= form_for(@fleet) do |f| %>
+  <% if @fleet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fleet.errors.count, "error") %> prohibited this fleet from being saved:</h2>
+
+      <ul>
+      <% @fleet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130705211048) do
+ActiveRecord::Schema.define(version: 20130807034709) do
 
   create_table "buildings", force: true do |t|
     t.integer  "village_id"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20130705211048) do
 
   add_index "fjords", ["nation_id"], name: "index_fjords_on_nation_id"
   add_index "fjords", ["user_id"], name: "index_fjords_on_user_id"
+
+  create_table "fleets", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "index"
+    t.integer  "village_id"
+    t.datetime "docked_at"
+    t.integer  "position"
+    t.text     "resources"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "gods", force: true do |t|
     t.string   "name"
@@ -68,9 +79,11 @@ ActiveRecord::Schema.define(version: 20130705211048) do
     t.integer  "fjord_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fleet_id"
   end
 
   add_index "ships", ["fjord_id"], name: "index_ships_on_fjord_id"
+  add_index "ships", ["fleet_id"], name: "index_ships_on_fleet_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                            default: "", null: false

@@ -38,5 +38,8 @@ class VillageResourcesTest < ActiveSupport::TestCase
     village = Village.find(village.id)
     assert_equal village.resources['wood'], 20
     assert_equal village.resources['coal'], 20
+
+    village.village_resources.expects(:save).returns(false)
+    assert !village.village_resources.take_these!([['wood', 1, 1]])
   end
 end

@@ -17,7 +17,7 @@ end
 
 group :test do
   gem 'factory_girl_rails', '=1.1.beta1'
-  gem 'mocha', :git => 'git://github.com/floehopper/mocha.git'
-  gem 'simplecov', :git => 'git://github.com/colszowka/simplecov.git'
+  gem "mocha", "~> 0.14.0", require: false
+  gem 'simplecov', git: 'git://github.com/colszowka/simplecov.git', require: false
   gem 'flog'
 end

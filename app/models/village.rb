@@ -6,6 +6,7 @@ class Village < ActiveRecord::Base
   
   has_many :villagers
   has_many :buildings
+  has_many :fleets
   belongs_to :fjord
   
   has_one :village_resources

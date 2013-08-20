@@ -17,4 +17,5 @@ FactoryGirl.define do
   factory :village   do ; end
   factory :villager  do ; end
   factory :sacrifice do ; end
+  factory :fleet     do ; end
 end

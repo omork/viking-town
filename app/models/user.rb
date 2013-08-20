@@ -4,9 +4,11 @@ class User < ActiveRecord::Base
          :token_authenticatable, :encryptable, :encryptor => :sha512
   
   has_many :fjords
-  has_many :ships, :through => :fjords
-  has_many :vikings, :through => :fjords
-  has_many :villages, :through => :fjords
+  has_many :fleets
+  has_many :assigned_ships, through: :fleets
+  has_many :ships, through: :fjords, source: :ships
+  has_many :vikings, through: :fjords
+  has_many :villages, through: :fjords
   belongs_to :nation
   
   validates :nation, :presence => true, :on => :update
