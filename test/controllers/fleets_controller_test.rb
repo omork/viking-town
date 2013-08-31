@@ -23,10 +23,14 @@ class FleetsControllerTest < ActionController::TestCase
     assert_redirected_to action: :show, id: assigns(:fleet).id
     assert flash[:notice]
 
-    Fleet.any_instance.expects(:save).at_least_once.returns(false)
-    assert_difference('Fleet.count', 0) do
-      post :assemble, fleet: {}
+    save_called = false
+    stub_any_instance(Fleet, :save, false) do
+      assert_difference('Fleet.count', 0) do
+        post :assemble, fleet: {}
+      end
+      save_called = true
     end
+    assert save_called
     assert_response :success
   end
 

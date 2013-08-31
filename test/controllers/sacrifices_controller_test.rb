@@ -30,10 +30,11 @@ class SacrificesControllerTest < ActionController::TestCase
 
   test "should not create sacrifice" do
     assert_difference('Sacrifice.count', 0) do
-      Sacrifice.any_instance.expects(:save).at_least_once.returns(false)
-      post :create, sacrifice: { god_id: @sacrifice.god_id, 
-                                 resources: @sacrifice.resources, 
-                                 village_id: @sacrifice.village_id }
+      stub_any_instance(Sacrifice, :save, false) do
+        post :create, sacrifice: { god_id: @sacrifice.god_id,
+                                   resources: @sacrifice.resources,
+                                   village_id: @sacrifice.village_id }
+      end
     end
 
     assert_response :success
